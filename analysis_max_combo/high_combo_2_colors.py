@@ -86,25 +86,23 @@ def predict_combos_diff_color_orbs(positions, colors):
     return combos
 
 def main():
-    different_color_orbs = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
-    color_perms = list(perm_unique(different_color_orbs))
-    sorted_color_perms = [p for p in color_perms if is_sorted_permutation(p)]
+    different_color_orbs = [1] * 12  # [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
+    color_perms = [different_color_orbs]  # list(perm_unique(different_color_orbs))
+    sorted_color_perms = color_perms
     total_color_perms = len(sorted_color_perms)
-
-    # total_permu = int(factorial(11) // factorial(2) // factorial(3) // factorial(3) // factorial(3))
-
-
 
     combo_threshold = 8
     comb_counter = 0
+    found = 0
     b = Board()
 
-    fixed_pos = (0, 1, 2)
-    f = open('logs/board_same18_combo8_fixed' + '-'.join(map(str, fixed_pos)) + '.txt', 'w')
+    # fixed_pos = (0, 1, 2)
+    f = open('logs/orb-18-12_combo-8.txt', 'w')
 
-    fixed_count = len(fixed_pos)
-    fixed_max = max(fixed_pos)
-    total_combs = int(comb(30 - fixed_count, 12 - fixed_count))
+    # fixed_count = len(fixed_pos)
+    # fixed_max = max(fixed_pos)
+    # total_combs = int(comb(30, 12))
+    total_combs = int(comb(29, 12) + comb(28, 12) + comb(27, 12))
 
     print('total_combinations:', total_combs)
     print('total_permutations:', total_color_perms)
@@ -112,24 +110,28 @@ def main():
 
 
     start = time.time()
-    for partial_c in combinations(range(fixed_max+1, 30), 12-fixed_count):
-        c = fixed_pos + partial_c
+    for c in combinations(range(30), 12):
+        if c[0] == 3:
+            break
 
         same_color_combos = predict_combos_same_color_orbs(c)
         if same_color_combos + 4 >= combo_threshold:
-            for p in sorted_color_perms:
-                diff_color_combos = predict_combos_diff_color_orbs(c, p)
-                max_combos = same_color_combos + diff_color_combos
-                if max_combos < combo_threshold:
-                    continue
+            # for p in sorted_color_perms:
+            p = different_color_orbs
+                # diff_color_combos = predict_combos_diff_color_orbs(c, p)
+                # diff_color_combos = 4
+                # max_combos = same_color_combos + diff_color_combos
+                # if max_combos < combo_threshold:
+                #     continue
 
-                b.set_sparse_board(c, p)
-                combos = b.count_combos()
-                if combos >= combo_threshold:
-                    f.write('combos: {}\n{}'.format(combos, b.get_board_string()))
+            b.set_sparse_board(c, p)
+            combos = b.count_combos()
+            if combos >= combo_threshold:
+                found += 1
+                f.write('index: {}, combos: {}\n{}'.format(found, combos, b.get_board_string()))
 
         comb_counter += 1
-        if comb_counter % 10 == 0:
+        if comb_counter % 1000 == 0:
             proportion = comb_counter / total_combs
             elapsed_time = time.time() - start
             remaining_time = elapsed_time / proportion
