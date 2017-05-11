@@ -101,6 +101,7 @@ def main():
 
     fixed_pos = (0, 1, 2)
     f = open('logs/board_same18_combo8_fixed' + '-'.join(map(str, fixed_pos)) + '.txt', 'w')
+    f.write('[\n')
 
     fixed_count = len(fixed_pos)
     fixed_max = max(fixed_pos)
@@ -123,16 +124,17 @@ def main():
                 if max_combos < combo_threshold:
                     continue
 
-                b.set_sparse_board(c, p)
-                combos = b.count_combos()
-                if combos >= combo_threshold:
-                    f.write('combos: {}\n{}'.format(combos, b.get_board_string()))
+            b.set_sparse_board(c, p)
+            combos, main_combos = b.count_combos()
+            if combos >= combo_threshold:
+                found += 1
+                f.write('{{id: {}, combos: {}, main_combos: {}, board: {}}},\n'.format(found, combos, main_combos, b.get_board_string()))
 
         comb_counter += 1
         if comb_counter % 10 == 0:
             proportion = comb_counter / total_combs
             elapsed_time = time.time() - start
-            remaining_time = elapsed_time / proportion
+            remaining_time = elapsed_time / proportion * (1 - proportion)
             print('{:.5f} %, comb: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
                 proportion * 100,
                 comb_counter,
@@ -141,6 +143,7 @@ def main():
                 end='\r')
 
     # print(comb_counter)
+    f.write(']\n')
 
     # print(list(permutations([1, 1, 2])))
 

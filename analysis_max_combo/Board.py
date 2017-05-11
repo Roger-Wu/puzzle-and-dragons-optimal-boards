@@ -21,6 +21,7 @@ class Board(object):
         self.row_size = 5
         self.col_size = 6
         self.orb_types = 6
+        self.main_orb = 6
         self.match_len = 3
         if board:
             self.set_board(board)
@@ -42,7 +43,7 @@ class Board(object):
         # self.board = [[self.orb_types for j in range(self.width)] for i in range(self.height)]
         for ri in range(self.height):
             for ci in range(self.width):
-                self.board[ri][ci] = self.orb_types
+                self.board[ri][ci] = self.main_orb
         # for i in range(len(positions)):
         #     p = positions[i]
         #     self.board[p // self.col_size][p % self.col_size] = colors[i]
@@ -50,11 +51,11 @@ class Board(object):
             self.board[p // self.col_size][p % self.col_size] = c
 
     def get_board_string(self):
-        s = ''
+        s = '[\n'
         for ri in range(self.row_size -1, -1, -1):
             # s += ' '.join(list(map(str, self.board[ri])))
-            s += str(self.board[ri])
-            s += '\n'
+            s += str(self.board[ri]) + ',\n'
+        s += ']'
         return s
 
     def print_board(self, board=None):
@@ -110,6 +111,7 @@ class Board(object):
         # connect matched orbs and count combos
         # combo_idxs = [[0 for j in range(self.width)] for i in range(self.height)]
         next_combo_idx = 1
+        main_combos = 0
         for ri in range(self.row_size):
             for ci in range(self.col_size):
                 if not matched[ri][ci]:
@@ -137,6 +139,10 @@ class Board(object):
                             tail += 1
 
                     head += 1
+
+                if board[ri][ci] == self.main_orb:
+                    main_combos += 1
+
                 next_combo_idx += 1
 
         # print('matched:')
@@ -144,9 +150,9 @@ class Board(object):
         # print('combo_idxs:')
         # self.print_board(combo_idxs)
 
-        combo_count = next_combo_idx - 1
+        combos = next_combo_idx - 1
 
-        if combo_count > 0:
+        if combos > 0:
             # remove matched orbs
             board_after = [[0 for j in range(self.width)] for i in range(self.height)]
             for ci in range(self.col_size):
@@ -158,9 +164,11 @@ class Board(object):
 
             # self.print_board(board_after)
 
-            combo_count += self.count_combos(board_after)
+            extra_combos, extra_main_combos = self.count_combos(board_after)
+            combos += extra_combos
+            main_combos += extra_main_combos
 
-        return combo_count
+        return (combos, main_combos)
 
 
 def main():
@@ -177,11 +185,11 @@ def main():
     positions = list(range(12))
     colors = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
 
-    start = time.time()
-    for i in range(10000):
-        # b.set_sparse_board(positions, colors)
-        b.count_combos()
-    print('elapsed: {}'.format(time.time() - start))
+    # start = time.time()
+    # for i in range(10000):
+    #     # b.set_sparse_board(positions, colors)
+    #     b.count_combos()
+    # print('elapsed: {}'.format(time.time() - start))
 
     print(b.count_combos())
 
