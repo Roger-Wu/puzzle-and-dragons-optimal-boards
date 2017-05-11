@@ -1,5 +1,25 @@
 """
-coordinates:
+board when input/output/print:
+[
+    [0, 0, 0, 6, 6, 6],  # top
+    [6, 6, 6, 6, 6, 6],
+    [6, 6, 1, 6, 6, 6],
+    [4, 4, 4, 2, 2, 6],
+    [1, 1, 2, 3, 3, 3],  # bottom
+]
+0 means empty
+
+board stored in Board:
+[
+    [1, 1, 2, 3, 3, 3],  # bottom
+    [4, 4, 4, 2, 2, 6],
+    [6, 6, 1, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6],
+    [0, 0, 0, 6, 6, 6],  # top
+]
+board[0] = [1, 1, 2, 3, 3, 3]
+
+coordinates of board stored in Board:
 [
     [00, 01, 02, 03, 04, 05],  # bottom
     [10, 11, 12, 13, 14, 15],
@@ -9,7 +29,7 @@ coordinates:
 ]
 """
 
-from copy import deepcopy
+from copy import copy, deepcopy
 import random
 import time
 
@@ -20,8 +40,8 @@ class Board(object):
         self.width = 6
         self.row_size = 5
         self.col_size = 6
-        self.orb_types = 6
-        self.main_orb = 6
+        self.orb_colors = 6
+        self.main_orb_color = 6
         self.match_len = 3
         if board:
             self.set_board(board)
@@ -33,17 +53,17 @@ class Board(object):
         self.queue = [None] * (self.row_size * self.col_size)
 
     def set_board(self, board):
-        self.board = board[::-1]
+        self.board = [list(row) for row in reversed(board)]
 
     def set_random_board(self):
-        self.board = [[random.randrange(1, self.orb_types + 1) \
+        self.board = [[random.randrange(1, self.orb_colors + 1) \
         for j in range(self.width)] for i in range(self.height)]
 
     def set_sparse_board(self, positions, colors):
-        # self.board = [[self.orb_types for j in range(self.width)] for i in range(self.height)]
+        # self.board = [[self.orb_colors for j in range(self.width)] for i in range(self.height)]
         for ri in range(self.height):
             for ci in range(self.width):
-                self.board[ri][ci] = self.main_orb
+                self.board[ri][ci] = self.main_orb_color
         # for i in range(len(positions)):
         #     p = positions[i]
         #     self.board[p // self.col_size][p % self.col_size] = colors[i]
@@ -51,19 +71,14 @@ class Board(object):
             self.board[p // self.col_size][p % self.col_size] = c
 
     def get_board_string(self):
-        s = '[\n'
-        for ri in range(self.row_size -1, -1, -1):
-            # s += ' '.join(list(map(str, self.board[ri])))
-            s += str(self.board[ri]) + ',\n'
-        s += ']'
-        return s
+        return '[\n' + ',\n'.join(map(str, reversed(self.board))) + ']'
 
     def print_board(self, board=None):
         if not board:
             self.print_board(self.board)
         else:
-            for ri in range(self.row_size-1, -1, -1):
-                print(board[ri])
+            for row in reversed(board):
+                print(row)
             print()
 
     def get_orb(self, row_idx, col_idx):
@@ -75,7 +90,6 @@ class Board(object):
 
     def count_combos(self, board=None):
         if not board:
-            # board = deepcopy(self.board)
             board = self.board
 
         matched = self.matched
@@ -140,7 +154,7 @@ class Board(object):
 
                     head += 1
 
-                if board[ri][ci] == self.main_orb:
+                if board[ri][ci] == self.main_orb_color:
                     main_combos += 1
 
                 next_combo_idx += 1
