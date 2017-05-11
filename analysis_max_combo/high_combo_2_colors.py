@@ -91,7 +91,7 @@ def main():
     sorted_color_perms = color_perms
     total_color_perms = len(sorted_color_perms)
 
-    combo_threshold = 6
+    combo_threshold = 8
     comb_counter = 0
     found = 0
     b = Board()
@@ -135,14 +135,22 @@ def main():
             proportion = comb_counter / total_combs
             elapsed_time = time.time() - start
             remaining_time = elapsed_time / proportion * (1 - proportion)
-            print('{:.5f} %, comb: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
+            print('{:.5f} %, comb: {}, found: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
                 proportion * 100,
                 comb_counter,
+                found,
                 elapsed_time,
                 remaining_time),
                 end='\r')
 
     f.write(']\n')
+
+    elapsed_time = time.time() - start
+    print('total_combs: {}, combs: {}, found: {}, elapsed: {:.2f}'.format(
+        total_combs,
+        comb_counter,
+        found,
+        elapsed_time))
     # print(comb_counter)
 
     # print(list(permutations([1, 1, 2])))
