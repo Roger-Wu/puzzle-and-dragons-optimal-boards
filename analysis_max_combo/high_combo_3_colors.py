@@ -28,10 +28,11 @@ import time
 from Board import Board
 
 
-fixed_pos = (0,)
+fixed_pos = (int(sys.argv[-1]),)
+
 other_orb_colors = [1] * 6 + [2] * 6
 combo_threshold = 8
-filename = 'logs/orb-18-6-6_combo-8_fixed-0.txt'
+filename = 'logs/orb-18-6-6_combo-{}_fixed-{}.txt'.format(combo_threshold, fixed_pos[0])
 print('fixed_pos: {}, other_orb_colors: {}, combo_threshold: {}'.format(fixed_pos, other_orb_colors, combo_threshold))
 
 row_size = 5
@@ -126,32 +127,36 @@ def calc_main_orb_max_combos(other_orb_positions):
         return lr + lc + (main_orb_count - matched_main_orbs) // 3
 
 
+color_col_counts = [[0] * col_size for i in range(other_orb_color_count)]
+
 def calc_other_orb_max_combos(other_orb_positions, other_orb_color_permu):
-    pass
+    for color in range(other_orb_color_count):
+        for col in range(col_size):
+            color_col_counts[color][col] = 0
 
-# TODO: combine horizontal and vertical
-def predict_combos_same_color_orbs(positions):
-    rows = set()
-    for p in positions:
-        row = p // 6
-        rows.add(row)
-    if len(rows) == 5:
-        return 6
-    else:
-        return len(rows) - 1
-
-def predict_combos_diff_color_orbs(positions, colors):
-    color_cols = [[], [], [], []]
-    for p, c in zip(positions, colors):
+    for p, c in zip(other_orb_positions, other_orb_color_permu):
+        color = c - 1
         col = p % 6
-        color_cols[c-1].append(col)
+        color_col_counts[color][col] += 1
 
     combos = 0
-    # different color orbs
-    for cols in color_cols:
-        cols.sort()
-        if cols[0] == cols[1] == cols[2] or cols[0] == cols[1]-1 == cols[2]-2:
-            combos += 1
+    for color in range(other_orb_color_count):
+        col = 0
+        while col < col_size:
+            if color_col_counts[color][col] >= 3:
+                combos += 1
+                color_col_counts[color][col] -= 3
+                continue
+            elif (col+2 < col_size
+            and color_col_counts[color][col] > 0
+            and color_col_counts[color][col+1] > 0
+            and color_col_counts[color][col+2] > 0):
+                combos += 1
+                color_col_counts[color][col] -= 1
+                color_col_counts[color][col+1] -= 1
+                color_col_counts[color][col+2] -= 1
+            else:
+                col += 1
     return combos
 
 def main():
@@ -166,7 +171,6 @@ def main():
     f = open(filename, 'w')
     f.write('[\n')
 
-
     # fixed_pos = (0, 1, 2)
     fixed_count = len(fixed_pos)
     fixed_next = max(fixed_pos) + 1
@@ -176,7 +180,6 @@ def main():
     print('total_combinations:', total_combs)
     print('total_permutations:', total_perms)
     print('total:', total_combs * total_perms)
-
 
     start = time.time()
     for c_tail in combinations(range(fixed_next, orb_count), other_orb_count - fixed_count):
@@ -188,11 +191,10 @@ def main():
         # main_orb_max_combos = predict_combos_same_color_orbs(c)
         if main_orb_max_combos + 4 >= combo_threshold:
             for p in sorted_color_perms:
-                # diff_color_combos = predict_combos_diff_color_orbs(c, p)
-                # diff_color_combos = 4
-                # max_combos = same_color_combos + diff_color_combos
-                # if max_combos < combo_threshold:
-                #     continue
+                other_orb_max_combos = calc_other_orb_max_combos(c, p)
+                max_combos = main_orb_max_combos + other_orb_max_combos
+                if max_combos < combo_threshold:
+                    continue
 
                 b.set_sparse_board(c, p)
                 combos, main_combos = b.count_combos()
@@ -230,8 +232,11 @@ def main():
 
 def test():
     positions = range(12)
-    print(calc_main_orb_max_combos(positions))
-    print(predict_combos_same_color_orbs(positions))
+    print(positions, other_orb_colors)
+    print(calc_other_orb_max_combos(positions, other_orb_colors))
+    print(calc_other_orb_max_combos([0, 1, 2, 3, 4, 5, 8, 11, 17], [1, 1, 1, 2, 2, 1, 2, 1, 1]))
+    # print(calc_main_orb_max_combos(positions))
+    # print(predict_combos_same_color_orbs(positions))
 
 if __name__ == '__main__':
     main()
