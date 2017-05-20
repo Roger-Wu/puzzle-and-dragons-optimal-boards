@@ -43,6 +43,7 @@ class Board(object):
         self.orb_colors = 6
         self.main_orb_color = 6
         self.match_len = 3
+        self.cell_count = self.row_size * self.col_size
         if board:
             self.set_board(board)
         else:
@@ -51,6 +52,8 @@ class Board(object):
         self.matched = [[0 for j in range(self.width)] for i in range(self.height)]
         self.combo_idxs = [[0 for j in range(self.width)] for i in range(self.height)]
         self.queue = [None] * (self.row_size * self.col_size)
+
+        self.color_col_counts = [[0] * self.col_size for i in range(self.orb_colors)]
 
     def set_board(self, board):
         self.board = [list(row) for row in reversed(board)]
@@ -184,6 +187,77 @@ class Board(object):
 
         return (combos, main_combos)
 
+    def count_main_orb_max_combos(self, other_orb_positions):
+        row_size = self.row_size  # 5
+        col_size = self.col_size  # 6
+        match_len = self.match_len  # 3
+
+        # use global variable will not speed up
+        rows_only_main_orbs = [1] * row_size
+        cols_only_main_orbs = [1] * col_size
+
+        for p in other_orb_positions:
+            rows_only_main_orbs[p // col_size] = 0
+            cols_only_main_orbs[p % col_size] = 0
+
+        rc = sum(rows_only_main_orbs)  # only_main_orb_row_count
+        cc = sum(cols_only_main_orbs)  # only_main_orb_col_count
+
+        main_orb_count = self.cell_count - len(other_orb_positions)
+
+        if rc == cc == 0:
+            return main_orb_count // match_len
+
+        matched_main_orbs = rc * col_size + cc * row_size - rc * cc
+
+        if rc > 0 and cc > 0:
+            combos = 1
+        elif rc > 0:  # cc == 0
+            combos = rows_only_main_orbs[0]
+            for i in range(1, row_size):
+                if rows_only_main_orbs[i-1] == 0 and rows_only_main_orbs[i] == 1:
+                    combos += 1
+        else:
+            combos = cols_only_main_orbs[0]
+            for i in range(1, col_size):
+                if cols_only_main_orbs[i-1] == 0 and cols_only_main_orbs[i] == 1:
+                    combos += 1
+
+        return combos + (main_orb_count - matched_main_orbs) // match_len
+
+    def count_other_orb_max_combos(self, other_orb_positions, other_orb_colors, other_orb_color_count):
+        col_size = self.col_size
+        color_col_counts = self.color_col_counts
+
+        for color in range(other_orb_color_count):
+            for col in range(col_size):
+                color_col_counts[color][col] = 0
+
+        for p, c in zip(other_orb_positions, other_orb_colors):
+            color = c - 1
+            col = p % 6
+            color_col_counts[color][col] += 1
+
+        combos = 0
+        for color in range(other_orb_color_count):
+            col = 0
+            while col < col_size:
+                if color_col_counts[color][col] >= 3:
+                    combos += 1
+                    color_col_counts[color][col] -= 3
+                    continue
+                elif (col+2 < col_size
+                and color_col_counts[color][col] > 0
+                and color_col_counts[color][col+1] > 0
+                and color_col_counts[color][col+2] > 0):
+                    combos += 1
+                    color_col_counts[color][col] -= 1
+                    color_col_counts[color][col+1] -= 1
+                    color_col_counts[color][col+2] -= 1
+                else:
+                    col += 1
+        return combos
+
 
 def main():
     b = Board([
@@ -194,18 +268,26 @@ def main():
         [1, 1, 2, 3, 3, 3],
     ])
 
-    b.print_board()
+    start = time.time()
 
-    positions = list(range(12))
-    colors = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
+    # b.print_board()
 
-    # start = time.time()
+    # positions = list(range(12))
+    # colors = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
+
     # for i in range(10000):
     #     # b.set_sparse_board(positions, colors)
     #     b.count_combos()
-    # print('elapsed: {}'.format(time.time() - start))
 
-    print(b.count_combos())
+    # print(b.count_combos())
+
+    # print(b.count_main_orb_max_combos([0, 7, 14, 21, 28, 29]))
+    positions = [0, 1, 2, 3, 6, 12, 24]
+    for i in range(10000):
+        b.count_other_orb_max_combos(positions, [1] * len(positions), 1)
+
+    print('elapsed: {}'.format(time.time() - start))
+
 
 if __name__ == '__main__':
     main()
