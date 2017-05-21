@@ -11,8 +11,8 @@ from Board import Board
 
 
 threads = 6
-orb_counts = [23, 7]
-combo_threshold = 7
+orb_counts = [18, 3, 3, 3, 3]
+combo_threshold = 8
 
 orb_config_name = '-'.join(map(str, orb_counts))
 output_folder = 'output/{}/'.format(orb_config_name)
@@ -161,12 +161,12 @@ def main():
     pool = Pool(threads)
 
     fixed_first_row_positions = []
-    for i in range(6):
-        fixed_count = i + 1
+    for fixed_count in range(7):
         for combi in combinations(range(6), fixed_count):
             if reverse_first_row(combi) not in fixed_first_row_positions:
                 fixed_first_row_positions.append(combi)
     print(fixed_first_row_positions)
+    print(len(fixed_first_row_positions))
 
 
     start = time.time()
