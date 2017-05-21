@@ -11,11 +11,11 @@ board when input/output/print:
 
 board stored in Board:
 [
-    [1, 1, 2, 3, 3, 3],  # bottom
+    [1, 1, 2, 3, 3, 3],  # bottom, row_idx = 0
     [4, 4, 4, 2, 2, 6],
     [6, 6, 1, 6, 6, 6],
     [6, 6, 6, 6, 6, 6],
-    [0, 0, 0, 6, 6, 6],  # top
+    [0, 0, 0, 6, 6, 6],  # top, row_idx = 4
 ]
 board[0] = [1, 1, 2, 3, 3, 3]
 
@@ -29,7 +29,6 @@ coordinates of board stored in Board:
 ]
 """
 
-from copy import copy, deepcopy
 import random
 import time
 
@@ -41,17 +40,20 @@ class Board(object):
         self.row_size = 5
         self.col_size = 6
         self.orb_colors = 6
-        self.main_orb_color = 6
+        self.main_color = 6
         self.match_len = 3
-        self.cell_count = self.row_size * self.col_size
+        self.cell_count = self.row_size * self.col_size  # 30
         if board:
             self.set_board(board)
         else:
             self.set_random_board()
 
-        self.matched = [[0 for j in range(self.width)] for i in range(self.height)]
-        self.combo_idxs = [[0 for j in range(self.width)] for i in range(self.height)]
-        self.queue = [None] * (self.row_size * self.col_size)
+        self.matched = [[0] * self.width for i in range(self.height)]
+        self.combo_idxs = [[0] * self.width for i in range(self.height)]
+        # self.queue = [None] * self.cell_count
+        self.queue_ri = [0] * self.cell_count
+        self.queue_ci = [0] * self.cell_count
+        self.four_directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
         self.color_col_counts = [[0] * self.col_size for i in range(self.orb_colors)]
 
@@ -62,14 +64,33 @@ class Board(object):
         self.board = [[random.randrange(1, self.orb_colors + 1) \
         for j in range(self.width)] for i in range(self.height)]
 
+    def calc_symmetric_position(self, p):
+        # row_idx = p // 6
+        # col_idx = p % 6
+        # symmetric_col_idx = (6 - 1) - col_idx
+        # symmetric_p = row_idx * 6 + symmetric_col_idx
+        #   = p - (p % self.col_size) + (self.col_size - 1 - p % self.col_size)
+        #   = p - (p % self.col_size) * 2 + self.col_size - 1
+        return p + self.col_size - 1 - (p % self.col_size) * 2
+
+    def calc_symmetric_positions(self, positions):
+        return tuple(sorted(map(self.calc_symmetric_position, positions)))
+
+    def calc_symmetric_positions_int(self, positions):
+        return self.positions_to_int(map(self.calc_symmetric_position, positions))
+
+    def positions_to_int(self, positions):
+        b = 0
+        for p in positions:
+            b ^= (1 << p)
+        return b
+
     def set_sparse_board(self, positions, colors):
         # self.board = [[self.orb_colors for j in range(self.width)] for i in range(self.height)]
         for ri in range(self.height):
             for ci in range(self.width):
-                self.board[ri][ci] = self.main_orb_color
-        # for i in range(len(positions)):
-        #     p = positions[i]
-        #     self.board[p // self.col_size][p % self.col_size] = colors[i]
+                self.board[ri][ci] = self.main_color
+
         for p, c in zip(positions, colors):
             self.board[p // self.col_size][p % self.col_size] = c
 
@@ -77,7 +98,7 @@ class Board(object):
         return '[\n' + ',\n'.join(map(str, reversed(self.board))) + ']'
 
     def get_output_board(self):
-        return [str(row) for row in reversed(self.board)]
+        return [' '.join(map(str, row)) for row in reversed(self.board)]
 
     def print_board(self, board=None):
         if not board:
@@ -100,15 +121,15 @@ class Board(object):
 
         matched = self.matched
         combo_idxs = self.combo_idxs
-        queue = self.queue
+        queue_ri = self.queue_ri
+        queue_ci = self.queue_ci
 
         for ri in range(self.row_size):
             for ci in range(self.col_size):
                 matched[ri][ci] = 0
                 combo_idxs[ri][ci] = 0
 
-        # set matched to 1 if orb matched
-        # matched = [[0 for j in range(self.width)] for i in range(self.height)]
+        # find matched orbs and mark them
         # check horizontal
         for ri in range(self.row_size):
             for ci in range(self.col_size - self.match_len + 1):
@@ -129,9 +150,8 @@ class Board(object):
                     matched[ri+2][ci] = 1
 
         # connect matched orbs and count combos
-        # combo_idxs = [[0 for j in range(self.width)] for i in range(self.height)]
-        next_combo_idx = 1
-        main_combos = 0
+        combo_idx = 1
+        combos = []
         for ri in range(self.row_size):
             for ci in range(self.col_size):
                 if not matched[ri][ci]:
@@ -139,42 +159,41 @@ class Board(object):
                 if combo_idxs[ri][ci] != 0:
                     continue
 
-                # find all matched and connected orbs with dfs
-                # for i in range(len(queue)):
-                #     queue[i] == None
-                queue[0] = (ri, ci)
-                combo_idxs[ri][ci] = next_combo_idx
-                head = 0
-                tail = 1
+                # find all matched and connected orbs with bfs
+                queue_ri[0] = ri
+                queue_ci[0] = ci
+                combo_idxs[ri][ci] = combo_idx
+                matched_orb_count = 1
+                head = 0  # for queue
+                tail = 1  # for queue
                 while head < tail:
-                    rj, cj = queue[head]
-                    # combo_idxs[rj][cj] = next_combo_idx
-                    for rj_delta, cj_delta in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    rj = queue_ri[head]
+                    cj = queue_ci[head]
+                    # check if neighbors are matched and have same color
+                    for rj_delta, cj_delta in self.four_directions:
                         rk = rj + rj_delta
                         ck = cj + cj_delta
-
-                        if 0 <= rk < self.row_size and 0 <= ck < self.col_size and matched[rk][ck] == 1 and board[rk][ck] == board[rj][cj] and combo_idxs[rk][ck] == 0:
-                            combo_idxs[rk][ck] = next_combo_idx
-                            queue[tail] = (rk, ck)
+                        if (0 <= rk < self.row_size
+                        and 0 <= ck < self.col_size
+                        and matched[rk][ck] == 1
+                        and board[rk][ck] == board[rj][cj]
+                        and combo_idxs[rk][ck] == 0):
+                            combo_idxs[rk][ck] = combo_idx
+                            matched_orb_count += 1
+                            queue_ri[tail] = rk
+                            queue_ci[tail] = ck
                             tail += 1
-
                     head += 1
+                combos.append((board[ri][ci], matched_orb_count))
+                combo_idx += 1
 
-                if board[ri][ci] == self.main_orb_color:
-                    main_combos += 1
+        drop_times = 0
 
-                next_combo_idx += 1
+        if combos:
+            drop_times = 1
 
-        # print('matched:')
-        # self.print_board(matched)
-        # print('combo_idxs:')
-        # self.print_board(combo_idxs)
-
-        combos = next_combo_idx - 1
-
-        if combos > 0:
             # remove matched orbs
-            board_after = [[0 for j in range(self.width)] for i in range(self.height)]
+            board_after = [[0] * self.width for i in range(self.height)]
             for ci in range(self.col_size):
                 ri_after = 0
                 for ri in range(self.row_size):
@@ -182,13 +201,11 @@ class Board(object):
                         board_after[ri_after][ci] = board[ri][ci]
                         ri_after += 1
 
-            # self.print_board(board_after)
-
-            extra_combos, extra_main_combos = self.count_combos(board_after)
+            extra_combos, extra_drop_times = self.count_combos(board_after)
             combos += extra_combos
-            main_combos += extra_main_combos
+            drop_times += extra_drop_times
 
-        return (combos, main_combos)
+        return combos, drop_times
 
     def count_main_orb_max_combos(self, other_orb_positions):
         row_size = self.row_size  # 5
@@ -254,9 +271,8 @@ class Board(object):
                 and color_col_counts[color][col+1] > 0
                 and color_col_counts[color][col+2] > 0):
                     combos += 1
-                    color_col_counts[color][col] -= 1
-                    color_col_counts[color][col+1] -= 1
-                    color_col_counts[color][col+2] -= 1
+                    for i in range(3):
+                        color_col_counts[color][col+i] -= 1
                 else:
                     col += 1
         return combos
@@ -273,21 +289,28 @@ def main():
 
     start = time.time()
 
+    pos = (1, 6, 8, 13)
+    print(b.calc_symmetric_positions(pos))
+    print(bin(b.positions_to_int(pos)))
+
+    # print(b.count_combos())
+
+    # test count combos
+    # for i in range(10000):
+    #     b.count_combos()
+
     # b.print_board()
 
     # positions = list(range(12))
     # colors = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
 
-    # for i in range(10000):
-    #     # b.set_sparse_board(positions, colors)
-    #     b.count_combos()
 
     # print(b.count_combos())
 
     # print(b.count_main_orb_max_combos([0, 7, 14, 21, 28, 29]))
-    positions = [0, 1, 2, 3, 6, 12, 24]
-    for i in range(10000):
-        b.count_other_orb_max_combos(positions, [1] * len(positions), 1)
+    # positions = [0, 1, 2, 3, 6, 12, 24]
+    # for i in range(10000):
+    #     b.count_other_orb_max_combos(positions, [1] * len(positions), 1)
 
     print('elapsed: {}'.format(time.time() - start))
 

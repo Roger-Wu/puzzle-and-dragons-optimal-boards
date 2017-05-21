@@ -1,28 +1,30 @@
 from multiprocessing import Pool
 from itertools import combinations, permutations, tee
+from collections import defaultdict
 import sys
 import os
 import time
 import json
 from Board import Board
+from visualize_boards import report_to_html
 # import operator as op
 # from scipy.misc import comb, factorial
 # from sympy.utilities.iterables import multiset_permutations
 
 
-threads = 6
-orb_counts = [18, 3, 3, 3, 3]
-combo_threshold = 8
+threads = 4
+orb_counts = [20, 10]
+combo_threshold = 7
 
-orb_config_name = '-'.join(map(str, orb_counts))
-output_folder = 'output/{}/'.format(orb_config_name)
+orb_combination_name = '-'.join(map(str, orb_counts))
+output_folder = 'output/{}/'.format(orb_combination_name)
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 other_orb_colors = [i for i in range(1, len(orb_counts)) for j in range(orb_counts[i])]
 other_orb_color_count = len(orb_counts) - 1
 
 print('run with {} threads, orb counts: {}, combos >= {}'.format(threads, orb_counts, combo_threshold))
-print(orb_config_name, other_orb_colors, other_orb_color_count)
+print(orb_combination_name, other_orb_colors, other_orb_color_count)
 
 # filename = 'logs/orb-18-6-6_combo-{}_fixed-{}.txt'.format(combo_threshold, fixed_pos[0])
 # print('fixed_pos: {}, other_orb_colors: {}, combo_threshold: {}'.format(fixed_pos, other_orb_colors, combo_threshold))
@@ -79,6 +81,9 @@ def is_sorted_permutation(p):
     # if the indeices of the first 1, 2, 3, ... is sorted
     return is_sorted([p.index(i+1) for i in range(other_orb_color_count)])
 
+def positions_to_int(positions):
+    pass
+
 color_perms = list(perm_unique(other_orb_colors))
 sorted_color_perms = [p for p in color_perms if is_sorted_permutation(p)]
 total_perms = len(sorted_color_perms)
@@ -86,20 +91,24 @@ total_perms = len(sorted_color_perms)
 print('total_permutations:', total_perms)
 
 def find_high_combo_boards_fix_first_row(fixed_first_row):
-    # fixed_in_first_row = (0,)
+    # input: fixed_in_first_row = (0,)
 
     b = Board()
+    main_color = b.main_color
+
+    may_be_symmetric = (fixed_first_row == b.calc_symmetric_positions(fixed_first_row))
+    if may_be_symmetric:
+        calced_pos_ints = set()
 
     fixed_orb_count = len(fixed_first_row)
     not_fixed_orb_count = len(other_orb_colors) - len(fixed_first_row)
     total_combs = comb(24, not_fixed_orb_count)
-
     print('total_combinations:', total_combs)
 
     other_orb_max_psbl_combos = len(other_orb_colors) // 3
 
     found_board_count = 0
-    found_combos_board_count = {}
+    combo_to_board_count = defaultdict(int)
     comb_counter = 0
 
     print_interval = 1000000 // len(sorted_color_perms)
@@ -110,6 +119,13 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
     for pos_tail in combinations(range(6, 30), not_fixed_orb_count):
         # other_orb_positions
         pos = fixed_first_row + pos_tail
+        if may_be_symmetric:
+            pos_int = b.positions_to_int(pos)
+            sym_pos_int = b.calc_symmetric_positions_int(pos)
+            if sym_pos_int in calced_pos_ints:
+                continue
+            else:
+                calced_pos_ints.add(pos_int)
 
         main_orb_max_combos = b.count_main_orb_max_combos(pos)
         if main_orb_max_combos + other_orb_max_psbl_combos < combo_threshold:
@@ -122,13 +138,21 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                 continue
 
             b.set_sparse_board(pos, colors)
-            combos, main_combos = b.count_combos()
-            if combos >= combo_threshold:
+            combos, drop_times = b.count_combos()
+
+            combo_count = len(combos)
+            main_combo_count = sum(color == main_color for color, matched in combos)
+            main_matched_count = sum(matched for color, matched in combos if color == main_color)
+
+            if combo_count >= combo_threshold:
                 found_board_count += 1
-                found_combos_board_count[combos] = found_combos_board_count.get(combos, 0) + 1
+                combo_to_board_count[combo_count] += 1
                 boards.append({
+                    'combo_count': combo_count,
+                    'main_combo_count': main_combo_count,
+                    'main_matched_count': main_matched_count,
+                    'drop_times': drop_times,
                     'combos': combos,
-                    'main_combos': main_combos,
                     'board': b.get_output_board()
                 })
 
@@ -137,7 +161,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
             proportion = comb_counter / total_combs
             elapsed_time = time.time() - start
             remaining_time = elapsed_time / proportion * (1 - proportion)
-            print('fixed: {}, {:.4f} %, comb: {}, found: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
+            print('fixed: {}, {:.2f} %, comb: {}, found: {}, elapsed: {:.1f}, remaining: {:.1f}'.format(
                 fixed_first_row,
                 proportion * 100,
                 comb_counter,
@@ -146,18 +170,17 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                 remaining_time)
             )
 
+    data = {'combo_to_board_count': combo_to_board_count, 'boards': boards}
     filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
     with open(filename, 'w') as out_file:
-        data = {'boards': boards, 'combos_boards': found_combos_board_count}
         json.dump(data, out_file, indent=4)
 
-    return (fixed_first_row, found_combos_board_count)
+    return data
 
 def reverse_first_row(positions):
     return tuple(5 - p for p in reversed(positions))
 
 def main():
-
     pool = Pool(threads)
 
     fixed_first_row_positions = []
@@ -168,34 +191,43 @@ def main():
     print(fixed_first_row_positions)
     print(len(fixed_first_row_positions))
 
-
+    # find high combo boards
     start = time.time()
-
-    results = pool.map(find_high_combo_boards_fix_first_row, fixed_first_row_positions)
-
+    data_list = pool.map(find_high_combo_boards_fix_first_row, fixed_first_row_positions)
     elapsed_time = time.time() - start
     print('total time:', elapsed_time)
 
 
-    total = {}
-    for fixed, found_combos_board_count in results:
-        print(found_combos_board_count)
-        for combos in found_combos_board_count.keys():
-        	total[combos] = total.get(combos, 0) + found_combos_board_count[combos]
-    print(total)
+    combo_to_board_count = defaultdict(int)
+    combo_to_boards = defaultdict(list)
+    for data in data_list:
+        local_combo_to_board_count = data['combo_to_board_count']
+        local_boards = data['boards']
 
+        for combo in local_combo_to_board_count.keys():
+            combo_to_board_count[combo] += local_combo_to_board_count[combo]
 
-    filename = output_folder + 'log.json'
-    with open(filename, 'w') as out_file:
+        for board in local_boards:
+            combo_to_boards[board['combo_count']].append(board)
+
+    print(combo_to_board_count)
+
+    max_combo = max(combo_to_board_count.keys())
+
+    report_filename = 'report.json'
+    with open(output_folder + report_filename, 'w') as out_file:
         data = {
-            'orb_config': orb_counts,
+            'orb_combination': orb_counts,
             'combo_threshold': combo_threshold,
-            'fixed_orbs_and_combos': list(map(str, results)),
-            'combos_boards': total,
             'threads': threads,
-            'cost_time': elapsed_time
+            'cost_time': elapsed_time,
+            'max_combo': max_combo,
+            'combo_to_board_count': combo_to_board_count,
+            'combo_to_boards': combo_to_boards,
         }
         json.dump(data, out_file, indent=4)
+
+    report_to_html(output_folder, report_filename)
 
 def test():
     positions = range(12)
