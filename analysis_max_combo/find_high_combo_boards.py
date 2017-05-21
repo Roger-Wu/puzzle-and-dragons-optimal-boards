@@ -3,15 +3,16 @@ from itertools import combinations, permutations, tee
 import sys
 import os
 import time
+import json
 from Board import Board
 # import operator as op
 # from scipy.misc import comb, factorial
 # from sympy.utilities.iterables import multiset_permutations
 
 
-threads = 4
-orb_counts = [18, 6, 6]
-combo_threshold = 8
+threads = 6
+orb_counts = [21, 3, 3, 3]
+combo_threshold = 7
 
 orb_config_name = '-'.join(map(str, orb_counts))
 output_folder = 'output/{}/'.format(orb_config_name)
@@ -91,7 +92,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
 
     filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
     out_file = open(filename, 'w')
-    out_file.write('[\n')
+    out_file.write('{\nboards: [\n')
 
     fixed_orb_count = len(fixed_first_row)
     not_fixed_orb_count = len(other_orb_colors) - len(fixed_first_row)
@@ -99,11 +100,13 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
 
     print('total_combinations:', total_combs)
 
-    other_orb_max_psbl_combos = 4 # len(other_orb_colors) // 3
+    other_orb_max_psbl_combos = len(other_orb_colors) // 3
 
     found_board_count = 0
-    found_combos_board_count = [0] * 11
+    found_combos_board_count = {}
     comb_counter = 0
+
+    print_interval = 1000000 // len(sorted_color_perms)
 
     start = time.time()
     for pos_tail in combinations(range(6, 30), not_fixed_orb_count):
@@ -124,12 +127,12 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
             combos, main_combos = b.count_combos()
             if combos >= combo_threshold:
                 found_board_count += 1
-                found_combos_board_count[combos] += 1
+                found_combos_board_count[combos] = found_combos_board_count.get(combos, 0) + 1
                 out_file.write('{{id: {}, combos: {}, main_combos: {}, board: {}}},\n'.format(
                     found_board_count, combos, main_combos, b.get_board_string()))
 
         comb_counter += 1
-        if comb_counter % 1000 == 0:
+        if comb_counter % print_interval == 0:
             proportion = comb_counter / total_combs
             elapsed_time = time.time() - start
             remaining_time = elapsed_time / proportion * (1 - proportion)
@@ -142,14 +145,16 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                 remaining_time)
             )
 
-    out_file.write(']\n')
+    out_file.write('],\ncombos: ' + str(found_combos_board_count) + '\n}\n')
+    out_file.close()
 
-    return found_combos_board_count
+    return (list(fixed_first_row), found_combos_board_count)
 
 def reverse_first_row(positions):
     return tuple(5 - p for p in reversed(positions))
 
 def main():
+
     pool = Pool(threads)
 
     fixed_first_row_positions = []
@@ -160,14 +165,34 @@ def main():
                 fixed_first_row_positions.append(combi)
     print(fixed_first_row_positions)
 
-    found_combos_board_counts = pool.map(find_high_combo_boards_fix_first_row, fixed_first_row_positions)
 
-    total = [0] * 11
-    for found_combos_board_count in found_combos_board_counts:
+    start = time.time()
+
+    results = pool.map(find_high_combo_boards_fix_first_row, fixed_first_row_positions)
+
+    elapsed_time = time.time() - start
+    print('total time:', elapsed_time)
+
+
+    total = {}
+    for fixed, found_combos_board_count in results:
         print(found_combos_board_count)
-        for i in range(11):
-            total[i] += found_combos_board_count[i]
+        for combos in found_combos_board_count.keys():
+        	total[combos] = total.get(combos, 0) + found_combos_board_count[combos]
     print(total)
+
+
+    filename = output_folder + 'log.json'
+    out_file = open(filename, 'w')
+    out_file.write('{\n')
+    out_file.write('orb_config: ' + str(orb_config_name) + ',\n')
+    out_file.write('combo_threshold: ' + str(combo_threshold) + ',\n')
+    out_file.write('fixed_orbs_and_result: [\n' + ',\n'.join(map(str, results)) + '\n],\n')
+    out_file.write('combos_to_boards: ' + str(total) + ',\n')
+    out_file.write('threads: ' + str(threads) + ',\n')
+    out_file.write('cost_time: ' + str(elapsed_time) + '\n')
+    out_file.write('}\n')
+    out_file.close()
 
 def test():
     positions = range(12)
