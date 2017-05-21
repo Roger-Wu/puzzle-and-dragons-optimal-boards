@@ -76,6 +76,9 @@ class Board(object):
     def get_board_string(self):
         return '[\n' + ',\n'.join(map(str, reversed(self.board))) + ']'
 
+    def get_output_board(self):
+        return [str(row) for row in reversed(self.board)]
+
     def print_board(self, board=None):
         if not board:
             self.print_board(self.board)

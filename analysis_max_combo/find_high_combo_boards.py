@@ -11,7 +11,7 @@ from Board import Board
 
 
 threads = 6
-orb_counts = [21, 3, 3, 3]
+orb_counts = [23, 7]
 combo_threshold = 7
 
 orb_config_name = '-'.join(map(str, orb_counts))
@@ -90,10 +90,6 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
 
     b = Board()
 
-    filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
-    out_file = open(filename, 'w')
-    out_file.write('{\nboards: [\n')
-
     fixed_orb_count = len(fixed_first_row)
     not_fixed_orb_count = len(other_orb_colors) - len(fixed_first_row)
     total_combs = comb(24, not_fixed_orb_count)
@@ -107,6 +103,8 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
     comb_counter = 0
 
     print_interval = 1000000 // len(sorted_color_perms)
+
+    boards = []
 
     start = time.time()
     for pos_tail in combinations(range(6, 30), not_fixed_orb_count):
@@ -128,8 +126,11 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
             if combos >= combo_threshold:
                 found_board_count += 1
                 found_combos_board_count[combos] = found_combos_board_count.get(combos, 0) + 1
-                out_file.write('{{id: {}, combos: {}, main_combos: {}, board: {}}},\n'.format(
-                    found_board_count, combos, main_combos, b.get_board_string()))
+                boards.append({
+                    'combos': combos,
+                    'main_combos': main_combos,
+                    'board': b.get_output_board()
+                })
 
         comb_counter += 1
         if comb_counter % print_interval == 0:
@@ -145,10 +146,12 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                 remaining_time)
             )
 
-    out_file.write('],\ncombos: ' + str(found_combos_board_count) + '\n}\n')
-    out_file.close()
+    filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
+    with open(filename, 'w') as out_file:
+        data = {'boards': boards, 'combos_boards': found_combos_board_count}
+        json.dump(data, out_file, indent=4)
 
-    return (list(fixed_first_row), found_combos_board_count)
+    return (fixed_first_row, found_combos_board_count)
 
 def reverse_first_row(positions):
     return tuple(5 - p for p in reversed(positions))
@@ -183,16 +186,16 @@ def main():
 
 
     filename = output_folder + 'log.json'
-    out_file = open(filename, 'w')
-    out_file.write('{\n')
-    out_file.write('orb_config: ' + str(orb_config_name) + ',\n')
-    out_file.write('combo_threshold: ' + str(combo_threshold) + ',\n')
-    out_file.write('fixed_orbs_and_result: [\n' + ',\n'.join(map(str, results)) + '\n],\n')
-    out_file.write('combos_to_boards: ' + str(total) + ',\n')
-    out_file.write('threads: ' + str(threads) + ',\n')
-    out_file.write('cost_time: ' + str(elapsed_time) + '\n')
-    out_file.write('}\n')
-    out_file.close()
+    with open(filename, 'w') as out_file:
+        data = {
+            'orb_config': orb_counts,
+            'combo_threshold': combo_threshold,
+            'fixed_orbs_and_combos': list(map(str, results)),
+            'combos_boards': total,
+            'threads': threads,
+            'cost_time': elapsed_time
+        }
+        json.dump(data, out_file, indent=4)
 
 def test():
     positions = range(12)
