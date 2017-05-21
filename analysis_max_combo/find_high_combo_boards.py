@@ -1,41 +1,30 @@
-"""
-WLOG, first orb must be in the top row and in the first 3 column
-and no orb left to it
-
-total combinations:
-P(29, 11) / 2! / 3! / 3! / 3! +
-P(28, 11) / 2! / 3! / 3! / 3! +
-P(27, 11) / 2! / 3! / 3! / 3!
-= 6.38 * 10^12
-
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-0 0 0 0 0 0
-1 0 0 0 0 0
-
-TODO: consider symmetry. if repeat, don't compute again
-    combination -> a integer, each bit represent whether a sub-color orb is there
-TODO: generalization
-"""
-
 from multiprocessing import Pool
 from itertools import combinations, permutations, tee
 import sys
+import os
+import time
+from Board import Board
 # import operator as op
 # from scipy.misc import comb, factorial
 # from sympy.utilities.iterables import multiset_permutations
-import time
-from Board import Board
 
 
-fixed_pos = (1,)  # (int(sys.argv[-1]),)
-
-other_orb_colors = [1] * 6 + [2] * 6
-other_orb_color_count = 2
+threads = 4
+orb_counts = [18, 6, 6]
 combo_threshold = 8
-filename = 'logs/orb-18-6-6_combo-{}_fixed-{}.txt'.format(combo_threshold, fixed_pos[0])
-print('fixed_pos: {}, other_orb_colors: {}, combo_threshold: {}'.format(fixed_pos, other_orb_colors, combo_threshold))
+
+orb_config_name = '-'.join(map(str, orb_counts))
+output_folder = 'output/{}/'.format(orb_config_name)
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+other_orb_colors = [i for i in range(1, len(orb_counts)) for j in range(orb_counts[i])]
+other_orb_color_count = len(orb_counts) - 1
+
+print('run with {} threads, orb counts: {}, combos >= {}'.format(threads, orb_counts, combo_threshold))
+print(orb_config_name, other_orb_colors, other_orb_color_count)
+
+# filename = 'logs/orb-18-6-6_combo-{}_fixed-{}.txt'.format(combo_threshold, fixed_pos[0])
+# print('fixed_pos: {}, other_orb_colors: {}, combo_threshold: {}'.format(fixed_pos, other_orb_colors, combo_threshold))
 
 row_size = 5
 col_size = 6
@@ -43,7 +32,6 @@ orb_count = row_size * col_size
 other_orb_count = len(other_orb_colors)
 main_orb_count = orb_count - other_orb_count
 other_orb_color_count = len(set(other_orb_colors))
-
 
 def pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
@@ -90,86 +78,96 @@ def is_sorted_permutation(p):
     # if the indeices of the first 1, 2, 3, ... is sorted
     return is_sorted([p.index(i+1) for i in range(other_orb_color_count)])
 
-def f(x):
-    # for i in range(x):
-    #     print(x, i)
-    return x*x
+color_perms = list(perm_unique(other_orb_colors))
+sorted_color_perms = [p for p in color_perms if is_sorted_permutation(p)]
+total_perms = len(sorted_color_perms)
+
+print('total_permutations:', total_perms)
+
+def find_high_combo_boards_fix_first_row(fixed_first_row):
+    # fixed_in_first_row = (0,)
+
+    b = Board()
+
+    filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
+    out_file = open(filename, 'w')
+    out_file.write('[\n')
+
+    fixed_orb_count = len(fixed_first_row)
+    not_fixed_orb_count = len(other_orb_colors) - len(fixed_first_row)
+    total_combs = comb(24, not_fixed_orb_count)
+
+    print('total_combinations:', total_combs)
+
+    other_orb_max_psbl_combos = 4 # len(other_orb_colors) // 3
+
+    found_board_count = 0
+    found_combos_board_count = [0] * 11
+    comb_counter = 0
+
+    start = time.time()
+    for pos_tail in combinations(range(6, 30), not_fixed_orb_count):
+        # other_orb_positions
+        pos = fixed_first_row + pos_tail
+
+        main_orb_max_combos = b.count_main_orb_max_combos(pos)
+        if main_orb_max_combos + other_orb_max_psbl_combos < combo_threshold:
+            continue
+
+        for colors in sorted_color_perms:
+            other_orb_max_combos = b.count_other_orb_max_combos(pos, colors, other_orb_color_count)
+            max_combos = main_orb_max_combos + other_orb_max_combos
+            if max_combos < combo_threshold:
+                continue
+
+            b.set_sparse_board(pos, colors)
+            combos, main_combos = b.count_combos()
+            if combos >= combo_threshold:
+                found_board_count += 1
+                found_combos_board_count[combos] += 1
+                out_file.write('{{id: {}, combos: {}, main_combos: {}, board: {}}},\n'.format(
+                    found_board_count, combos, main_combos, b.get_board_string()))
+
+        comb_counter += 1
+        if comb_counter % 1000 == 0:
+            proportion = comb_counter / total_combs
+            elapsed_time = time.time() - start
+            remaining_time = elapsed_time / proportion * (1 - proportion)
+            print('fixed: {}, {:.4f} %, comb: {}, found: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
+                fixed_first_row,
+                proportion * 100,
+                comb_counter,
+                found_board_count,
+                elapsed_time,
+                remaining_time)
+            )
+
+    out_file.write(']\n')
+
+    return found_combos_board_count
+
+def reverse_first_row(positions):
+    return tuple(5 - p for p in reversed(positions))
 
 def main():
-    a = 1
-    pool = Pool(4)
-    print(pool.map(f, [1, 3, 5]))
+    pool = Pool(threads)
 
-    # color_perms = list(perm_unique(other_orb_colors))
-    # sorted_color_perms = [p for p in color_perms if is_sorted_permutation(p)]
-    # total_perms = len(sorted_color_perms)
+    fixed_first_row_positions = []
+    for i in range(6):
+        fixed_count = i + 1
+        for combi in combinations(range(6), fixed_count):
+            if reverse_first_row(combi) not in fixed_first_row_positions:
+                fixed_first_row_positions.append(combi)
+    print(fixed_first_row_positions)
 
-    # comb_counter = 0
-    # found = 0
-    # b = Board()
+    found_combos_board_counts = pool.map(find_high_combo_boards_fix_first_row, fixed_first_row_positions)
 
-    # f = open(filename, 'w')
-    # f.write('[\n')
-
-    # # fixed_pos = (0, 1, 2)
-    # fixed_count = len(fixed_pos)
-    # fixed_next = max(fixed_pos) + 1
-    # total_combs = comb(orb_count - fixed_next, other_orb_count - fixed_count)
-    # # total_combs = comb(29, 11) + comb(28, 11) + comb(27, 11)
-
-    # print('total_combinations:', total_combs)
-    # print('total_permutations:', total_perms)
-    # print('total:', total_combs * total_perms)
-
-    # start = time.time()
-    # for c_tail in combinations(range(fixed_next, orb_count), other_orb_count - fixed_count):
-    #     c = fixed_pos + c_tail
-    #     # if c[0] == 3:
-    #     #     break
-
-    #     main_orb_max_combos = b.count_main_orb_max_combos(c)
-    #     # main_orb_max_combos = predict_combos_same_color_orbs(c)
-    #     if main_orb_max_combos + 4 >= combo_threshold:
-    #         for p in sorted_color_perms:
-    #             other_orb_max_combos = b.count_other_orb_max_combos(c, p, other_orb_color_count)
-    #             max_combos = main_orb_max_combos + other_orb_max_combos
-    #             if max_combos < combo_threshold:
-    #                 continue
-
-    #             b.set_sparse_board(c, p)
-    #             combos, main_combos = b.count_combos()
-    #             if combos >= combo_threshold:
-    #                 found += 1
-    #                 f.write('{{id: {}, combos: {}, main_combos: {}, board: {}}},\n'.format(found, combos, main_combos, b.get_board_string()))
-
-    #     comb_counter += 1
-    #     if comb_counter % 1000 == 0:
-    #         proportion = comb_counter / total_combs
-    #         elapsed_time = time.time() - start
-    #         remaining_time = elapsed_time / proportion * (1 - proportion)
-    #         print('{:.4f} %, comb: {}, found: {}, elapsed: {:.2f}, remaining: {:.2f}'.format(
-    #             proportion * 100,
-    #             comb_counter,
-    #             found,
-    #             elapsed_time,
-    #             remaining_time),
-    #             end='\r')
-
-    # f.write(']\n')
-
-    # elapsed_time = time.time() - start
-    # print('total_combs: {}, combs: {}, found: {}, elapsed: {:.2f}'.format(
-    #     total_combs,
-    #     comb_counter,
-    #     found,
-    #     elapsed_time))
-
-    # print(comb_counter)
-
-    # print(list(permutations([1, 1, 2])))
-
-    # print(list(perm_unique([1, 1, 2])))  # faster
-    # print(list(multiset_permutations([1, 1, 2])))
+    total = [0] * 11
+    for found_combos_board_count in found_combos_board_counts:
+        print(found_combos_board_count)
+        for i in range(11):
+            total[i] += found_combos_board_count[i]
+    print(total)
 
 def test():
     positions = range(12)
