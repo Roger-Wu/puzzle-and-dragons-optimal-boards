@@ -33,7 +33,7 @@ class App extends React.Component {
       ],
     };
     this.load_orb_config = this.load_orb_config.bind(this);
-    this.load_orb_config({value: this.state.selected_value});
+    this.load_orb_config(this.state.selected_value);
   }
 
   sort_boards(board_objs) {
@@ -48,8 +48,8 @@ class App extends React.Component {
     })
   }
 
-  load_orb_config(option) {
-    let orb_config = option.value;
+  load_orb_config(option_value) {
+    let orb_config = option_value;
     let url = "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/done_" + orb_config + "/report.json";
     $.getJSON(url, (data) => {
       console.log(data);
