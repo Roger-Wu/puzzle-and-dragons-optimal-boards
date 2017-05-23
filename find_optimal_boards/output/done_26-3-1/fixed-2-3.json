@@ -1,0 +1,1226 @@
+{
+    "combo_to_board_count": {
+        "2": 53
+    }, 
+    "boards": [
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 2 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 2 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 1, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 24, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    24
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 24, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    24
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "6 2 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 2 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 1 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "1 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "2 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "2 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "1 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "2 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 2 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 2 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 1 6 6 2 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "1 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "2 6 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 2 6 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 25, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    25
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 2 6 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 2 6 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 2 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 2 6", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 2", 
+                "6 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 6 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 1 6 6 6", 
+                "6 6 1 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 1 6", 
+                "6 6 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "1 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 2 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "2 1 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "2 6 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 2 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 2 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 2 6 6 1 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 2, 
+            "combos": [
+                [
+                    6, 
+                    26
+                ], 
+                [
+                    1, 
+                    3
+                ]
+            ], 
+            "board": [
+                "6 1 6 6 2 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 1 1 6 6"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "combo_to_board_count": {
+        "2": 2
+    }, 
+    "boards": [
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 1, 
+            "combos": [
+                [
+                    1, 
+                    3
+                ], 
+                [
+                    6, 
+                    26
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "2 1 1 1 6 6"
+            ]
+        }, 
+        {
+            "combo_count": 2, 
+            "main_combo_count": 1, 
+            "main_matched_count": 26, 
+            "drop_times": 1, 
+            "combos": [
+                [
+                    1, 
+                    3
+                ], 
+                [
+                    6, 
+                    26
+                ]
+            ], 
+            "board": [
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "6 6 6 6 6 6", 
+                "1 1 1 2 6 6"
+            ]
+        }
+    ]
+}
