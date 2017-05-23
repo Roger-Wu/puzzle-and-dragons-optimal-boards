@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #EEE;
+  font-weight: 100;
+  color: #666;
+}
+
+.emphasis {
+  font-weight: 400;
+  color: black;
+}
+
+.top-container {
+  background-color: #5D4037;
+  padding: 40px 10px 40px;
+  box-shadow: 0px 2px 8px #444;
+}
+
+.title {
+  text-shadow: 0px 2px 8px black;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 100;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+.selector-wrapper {
+  width: 200px;
+  margin: 0 auto;
+  color: black;
+  font-weight: 200;
+  box-shadow: 0 2px 8px #444;
+}
+
+.main-info-container {
+  text-align: center;
+  font-size: 32px;
+  margin: 20px 0;
+}
+
+.main-info-number {
+  font-size: 40px;
+}
+
+.main-info-text {
+}
+
+.orb-color-1 {
+  background-color: red;
+}
+
+.orb-color-2 {
+  background-color: blue;
+}
+
+.orb-color-3 {
+  background-color: green;
+}
+
+.orb-color-4 {
+  background-color: yellow;
+}
+
+.orb-color-5 {
+  background-color: purple;
+}
+
+.orb-color-6 {
+  background-color: #AAA;
+}
+
+
+.board-cards-container {
+  /*display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;*/
+  text-align: center;
+}
+
+.board-card {
+  display: inline-block;
+  text-align: left;
+  width: 280px;
+  margin: 10px;
+  background-color: white;
+  /*border: 1px solid;*/
+  /*border-color: #e5e6e9 #dfe0e4 #d0d1d5;*/
+  border-radius: 4px;
+  box-shadow: 0 1px 4px #AAA;
+}
+
+.board-index {
+  text-align: center;
+  font-size: 32px;
+  /*font-weight: normal;*/
+  color: white;
+  background-color: #8D6E63;
+  padding: 8px 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.board-info {
+  font-size: 24px;
+  /*color: #606060;*/
+  margin: 15px;
+}
+
+.board-info-number {
+  font-size: 32px;
+}
+
+.board-info-text {
+  /*position:absolute;
+  bottom:0;
+  right:0;*/
+  float: right;
+  margin-top: 6px;
+}
+
+.board-info-combo {
+  letter-spacing: 4px;
+}
+
+.board {
+  text-align: center;
+  margin: 14px 0;
+}
+
+.board-row {
+  height: 42px;
+}
+
+.orb {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin: 1px;
+}
