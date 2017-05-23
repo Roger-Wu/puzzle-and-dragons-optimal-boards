@@ -52,7 +52,7 @@ class App extends React.Component {
     let orb_config = option_value;
     let url = "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/done_" + orb_config + "/report.json";
     $.getJSON(url, (data) => {
-      console.log(data);
+      // console.log(data);
       let max_combo_board_objs = data.combo_to_boards[data.max_combo]
       this.sort_boards(max_combo_board_objs);
       this.setState({
