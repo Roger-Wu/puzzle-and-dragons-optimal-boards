@@ -7,16 +7,12 @@ import time
 import json
 from board import Board
 from utils import comb, unique_permutations
-from visualize_boards import report_to_html
-# import operator as op
-# from scipy.misc import comb, factorial
-# from sympy.utilities.iterables import multiset_permutations
 
 
 # configs
 threads = 4
-orb_counts = [20, 4, 3, 3]
-combo_threshold = 8
+orb_counts = [26, 3, 1]
+combo_threshold = 2
 
 # constants
 row_size = 5
@@ -141,8 +137,8 @@ def main():
     pool = Pool(threads)
 
     fixed_first_row_positions = []
-    for fixed_count in range(7):
-        for combi in combinations(range(6), fixed_count):
+    for fixed_count in range(min(6, other_orb_count) + 1):
+        for combi in combinations(range(col_size), fixed_count):
             if reverse_first_row(combi) not in fixed_first_row_positions:
                 fixed_first_row_positions.append(combi)
     # print(fixed_first_row_positions)
@@ -183,8 +179,6 @@ def main():
             'combo_to_boards': combo_to_boards,
         }
         json.dump(data, out_file, indent=4)
-
-    report_to_html(output_folder, report_filename)
 
 def test():
     color_perms = unique_permutations([3, 3, 2, 2], 1)

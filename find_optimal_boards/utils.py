@@ -1,3 +1,8 @@
+# import operator as op
+# from scipy.misc import comb, factorial
+# from sympy.utilities.iterables import multiset_permutations
+
+
 def comb(n, r):
     r = min(r, n-r)
     res = 1
