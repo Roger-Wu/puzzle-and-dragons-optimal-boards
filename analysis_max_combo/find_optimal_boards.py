@@ -5,7 +5,7 @@ import sys
 import os
 import time
 import json
-from Board import Board
+from board import Board
 from utils import comb, unique_permutations
 from visualize_boards import report_to_html
 # import operator as op
@@ -15,8 +15,8 @@ from visualize_boards import report_to_html
 
 # configs
 threads = 4
-orb_counts = [23, 4, 3]
-combo_threshold = 5
+orb_counts = [20, 4, 3, 3]
+combo_threshold = 8
 
 # constants
 row_size = 5
