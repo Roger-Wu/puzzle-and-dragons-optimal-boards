@@ -9605,15 +9605,14 @@ class Board extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
 class BoardCard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
-    var board_obj = this.props.board_obj;
-    var index = this.props.index;
+    var { board_obj, title } = this.props;
     // var infos = [
     //   `${board_obj.combo_count} combos`,
     //   `${board_obj.main_combo_count} main combos`,
     //   `${board_obj.main_matched_count} matched main orbs`,
     //   `${board_obj.drop_times} times of dropping`,
     // ];
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-card" }, [__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-index", key: "board-index" }, `${index}`), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-card" }, [__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-index", key: "board-index" }, `${title}`), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "div",
       { className: "board-info", key: "board-info" },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -9667,17 +9666,21 @@ class BoardCard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Board, { board: board_obj.board, key: "board" }, null)]);
   }
 }
+/* harmony export (immutable) */ __webpack_exports__["a"] = BoardCard;
+
 
 class BoardCardsContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-cards-container" }, this.props.board_objs.map(function (board_obj, index) {
       let key = board_obj.board.join(" ");
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BoardCard, { board_obj: board_obj, index: index + 1, key: key }, null);
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BoardCard, { board_obj: board_obj, title: index + 1, key: key }, null);
     }));
   }
 }
+/* harmony export (immutable) */ __webpack_exports__["b"] = BoardCardsContainer;
 
-/* harmony default export */ __webpack_exports__["a"] = (BoardCardsContainer);
+
+// export default BoardCardsContainer;
 
 /***/ }),
 /* 84 */
@@ -20934,7 +20937,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
       options: [{ value: this.default_option_value, label: this.default_option_label }],
       selected_option_value: this.default_option_value,
       fetched_board_data: {}
-
     };
 
     this.fetch_data = this.fetch_data.bind(this);
@@ -20955,8 +20957,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
     }
 
     let url = orb_config_to_url(option_value);
-    // let default_option_value = this.default_option_value;
-    // let default_option_label = this.default_option_label;
     __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.getJSON(url, data => {
       // console.log(data);
 
@@ -21006,7 +21006,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
           "div",
           { className: "title" },
-          "PAD Optimal Boards"
+          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+            "span",
+            { className: "title-text" },
+            "Puzzle & Dragons Optimal Boards"
+          )
         ),
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
           "div",
@@ -21018,7 +21022,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
           })
         )
       ),
-      !this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value) ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Spinner, null) : this.state.selected_option_value === this.default_option_value ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", null) : __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(AppBody, { board_data: this.state.fetched_board_data[this.state.selected_option_value] })
+      !this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value) ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Spinner, null) : this.state.selected_option_value === this.default_option_value ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(OptimalBoards, { board_data: this.state.fetched_board_data[this.state.selected_option_value] }) : __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(AppBody, { board_data: this.state.fetched_board_data[this.state.selected_option_value] })
     );
   }
 }
@@ -21045,9 +21049,31 @@ class Spinner extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   }
 }
 
+class OptimalBoards extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
+  render() {
+    console.log(this.props);
+    let { board_data } = this.props;
+    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+      "div",
+      { className: "app-body" },
+      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        "div",
+        { className: "board-cards-container" },
+        board_data.map(optimal_board_data => {
+          return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__["a" /* BoardCard */], {
+            board_obj: optimal_board_data.optimal_board_obj,
+            title: optimal_board_data.orb_combination.join(" "),
+            key: optimal_board_data.orb_config
+          });
+        })
+      )
+    );
+  }
+}
+
 class AppBody extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   render() {
-    let board_data = this.props.board_data;
+    let { board_data } = this.props;
     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       "div",
       { className: "app-body" },
@@ -21083,7 +21109,7 @@ class AppBody extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
           )
         )
       ),
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__["a" /* default */], { board_objs: board_data.combo_to_boards[board_data.max_combo] })
+      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__["b" /* BoardCardsContainer */], { board_objs: board_data.combo_to_boards[board_data.max_combo] })
     );
   }
 }

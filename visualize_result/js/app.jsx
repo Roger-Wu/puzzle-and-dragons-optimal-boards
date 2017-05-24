@@ -1,7 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import ReactDOM from "react-dom";
-import BoardCardsContainer from "./BoardCardsContainer.jsx";
+import { BoardCard, BoardCardsContainer } from "./BoardCardsContainer.jsx";
 import Select from "react-select";
 
 
@@ -29,18 +29,6 @@ class App extends React.Component {
       options: [{ value: this.default_option_value, label: this.default_option_label }],
       selected_option_value: this.default_option_value,
       fetched_board_data: {},
-
-      // // orb_configs: orb_configs,
-      // orb_config_options: orb_configs.map((orb_config) => {
-      //   return {
-      //     value: orb_config,
-      //     label: orb_config.replace(/-/g, " ")
-      //   };
-      // }),
-      // selected_orb_config: initial_orb_config,
-      // fetched_board_data: {},
-      // board_data: null,
-
     };
 
     this.fetch_data = this.fetch_data.bind(this);
@@ -61,8 +49,6 @@ class App extends React.Component {
     }
 
     let url = orb_config_to_url(option_value);
-    // let default_option_value = this.default_option_value;
-    // let default_option_label = this.default_option_label;
     $.getJSON(url, (data) => {
       // console.log(data);
 
@@ -107,7 +93,9 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="top-container">
-          <div className="title">PAD Optimal Boards</div>
+          <div className="title">
+            <span className="title-text">Puzzle & Dragons Optimal Boards</span>
+          </div>
           <div className="selector-wrapper">
             <Select
               value={this.state.selected_option_value}
@@ -121,7 +109,7 @@ class App extends React.Component {
             <Spinner />
           ) : (
             this.state.selected_option_value === this.default_option_value ? (
-              <div />
+              <OptimalBoards board_data={this.state.fetched_board_data[this.state.selected_option_value]} />
             ) : (
               <AppBody board_data={this.state.fetched_board_data[this.state.selected_option_value]} />
             )
@@ -152,9 +140,29 @@ class Spinner extends React.Component {
   }
 }
 
+class OptimalBoards extends React.Component {
+  render() {
+    console.log(this.props);
+    let { board_data } = this.props;
+    return (
+      <div className="app-body">
+        <div className="board-cards-container">
+          { board_data.map((optimal_board_data) => {
+            return <BoardCard
+              board_obj={optimal_board_data.optimal_board_obj}
+              title={optimal_board_data.orb_combination.join(" ")}
+              key={optimal_board_data.orb_config}
+            />
+          })}
+        </div>
+      </div>
+    )
+  }
+}
+
 class AppBody extends React.Component {
   render() {
-    let board_data = this.props.board_data;
+    let { board_data } = this.props;
     return (
       <div className="app-body">
         <div className="main-info-container">

@@ -15,10 +15,9 @@ class Board extends React.Component {
   }
 }
 
-class BoardCard extends React.Component {
+export class BoardCard extends React.Component {
   render() {
-    var board_obj = this.props.board_obj;
-    var index = this.props.index;
+    var { board_obj, title } = this.props;
     // var infos = [
     //   `${board_obj.combo_count} combos`,
     //   `${board_obj.main_combo_count} main combos`,
@@ -26,7 +25,7 @@ class BoardCard extends React.Component {
     //   `${board_obj.drop_times} times of dropping`,
     // ];
     return React.createElement("div", {className: "board-card"}, [
-      React.createElement("div", {className: "board-index", key: "board-index"}, `${index}`),
+      React.createElement("div", {className: "board-index", key: "board-index"}, `${title}`),
       <div className="board-info" key="board-info">
         <div>
           <span className="board-info-number board-info-combo emphasis">{board_obj.main_combo_count}+{board_obj.combo_count - board_obj.main_combo_count}</span>
@@ -49,15 +48,15 @@ class BoardCard extends React.Component {
   }
 }
 
-class BoardCardsContainer extends React.Component {
+export class BoardCardsContainer extends React.Component {
   render() {
     return React.createElement("div", {className: "board-cards-container"},
       this.props.board_objs.map(function(board_obj, index) {
         let key = board_obj.board.join(" ");
-        return React.createElement(BoardCard, {board_obj: board_obj, index: index+1, key: key}, null);
+        return React.createElement(BoardCard, {board_obj: board_obj, title: index+1, key: key}, null);
       })
     );
   }
 }
 
-export default BoardCardsContainer;
+// export default BoardCardsContainer;

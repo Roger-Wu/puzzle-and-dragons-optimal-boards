@@ -30,17 +30,31 @@ body {
 .top-container {
   background-color: #5D4037;
   padding: 40rem 10rem 40rem;
-  box-shadow: 0rem 2rem 8rem #444;
+  /*box-shadow: 0rem 2rem 8rem #444;*/
+  background-image: url("../images/banner.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .title {
-  text-shadow: 0rem 2rem 8rem black;
+  text-shadow: 0rem 4rem 12rem black;
   text-align: center;
   font-size: 48rem;
   font-weight: 100;
   color: white;
   margin: 0 0 20rem 0;
 }
+
+.title-text {
+  display: inline-block;
+  vertical-align: top;  /* to prevent aligning by bottom */
+}
+
 
 .selector-wrapper {
   width: 280rem;
