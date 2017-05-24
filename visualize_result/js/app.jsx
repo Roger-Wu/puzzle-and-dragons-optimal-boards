@@ -8,6 +8,10 @@ import Select from "react-select";
 const orb_configs = ["26-4", "26-3-1", "25-5", "25-3-2", "24-6", "24-3-3", "23-7", "23-4-3", "22-8", "22-5-3", "22-3-3-2", "21-9", "21-3-3-3", "20-10", "19-11", "18-12", "17-13", "16-14"];
 let initial_orb_config = "18-12";
 
+function orb_config_to_url(orb_config) {
+  return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
+}
+
 class App extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -47,7 +51,7 @@ class App extends React.Component {
   }
 
   load_orb_config(option_value) {
-    console.log(option_value);
+    // console.log(option_value);
     if (!option_value) {
       return;
     }
@@ -68,9 +72,9 @@ class App extends React.Component {
       selected_orb_config: orb_config,
     });
 
-    let url = "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/done_" + orb_config + "/report.json";
+    let url = orb_config_to_url(orb_config);
     $.getJSON(url, (data) => {
-      console.log(data);
+      // console.log(data);
       this.sort_boards( data.combo_to_boards[data.max_combo] );
       this.state.fetched_board_data[option_value] = data;
       this.setState({
