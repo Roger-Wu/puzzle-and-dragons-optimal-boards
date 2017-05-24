@@ -28,12 +28,12 @@ body {
 }
 
 .top-container {
-  background-color: #221B12;
+  background-color: #38291A;
   padding: 40rem 10rem 40rem;
   /*box-shadow: 0rem 2rem 8rem #444;*/
   background-image: url("../images/banner.png");
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -127,9 +127,10 @@ body {
   font-size: 32rem;
   /*font-weight: normal;*/
   color: white;
-  background-color: #8D6E63;
+  background-color: #67524A;
   padding: 8rem 0;
   border-radius: 4rem 4rem 0 0;
+  text-shadow: 0rem 1rem 4rem black;
 }
 
 .board-info {
