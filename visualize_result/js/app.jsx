@@ -142,7 +142,6 @@ class Spinner extends React.Component {
 
 class OptimalBoards extends React.Component {
   render() {
-    console.log(this.props);
     let { board_data } = this.props;
     return (
       <div className="app-body">

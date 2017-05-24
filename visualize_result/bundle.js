@@ -21051,7 +21051,6 @@ class Spinner extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
 
 class OptimalBoards extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   render() {
-    console.log(this.props);
     let { board_data } = this.props;
     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       "div",
