@@ -1,3 +1,19 @@
+html {
+  font-size: 1px;
+}
+
+@media only screen and (max-device-width : 480px) {
+  html {
+    font-size: 3px;
+  }
+}
+
+@media only screen and (min-device-width : 481px) and (max-device-width : 768px) {
+  html {
+    font-size: 1.5px;
+  }
+}
+
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -13,35 +29,36 @@ body {
 
 .top-container {
   background-color: #5D4037;
-  padding: 40px 10px 40px;
-  box-shadow: 0px 2px 8px #444;
+  padding: 40rem 10rem 40rem;
+  box-shadow: 0rem 2rem 8rem #444;
 }
 
 .title {
-  text-shadow: 0px 2px 8px black;
+  text-shadow: 0rem 2rem 8rem black;
   text-align: center;
-  font-size: 48px;
+  font-size: 48rem;
   font-weight: 100;
   color: white;
-  margin: 0 0 20px 0;
+  margin: 0 0 20rem 0;
 }
 
 .selector-wrapper {
-  width: 200px;
+  width: 280rem;
   margin: 0 auto;
   color: black;
   font-weight: 200;
-  box-shadow: 0 2px 8px #444;
+  box-shadow: 0 2rem 8rem #444;
+  font-size: 24rem;
 }
 
 .main-info-container {
   text-align: center;
-  font-size: 32px;
-  margin: 20px 0;
+  font-size: 32rem;
+  margin: 20rem 0;
 }
 
 .main-info-number {
-  font-size: 40px;
+  font-size: 40rem;
 }
 
 .main-info-text {
@@ -82,33 +99,33 @@ body {
 .board-card {
   display: inline-block;
   text-align: left;
-  width: 280px;
-  margin: 10px;
+  width: 280rem;
+  margin: 10rem;
   background-color: white;
-  /*border: 1px solid;*/
+  /*border: 1rem solid;*/
   /*border-color: #e5e6e9 #dfe0e4 #d0d1d5;*/
-  border-radius: 4px;
-  box-shadow: 0 1px 4px #AAA;
+  border-radius: 4rem;
+  box-shadow: 0 1rem 4rem #AAA;
 }
 
 .board-index {
   text-align: center;
-  font-size: 32px;
+  font-size: 32rem;
   /*font-weight: normal;*/
   color: white;
   background-color: #8D6E63;
-  padding: 8px 0;
-  border-radius: 4px 4px 0 0;
+  padding: 8rem 0;
+  border-radius: 4rem 4rem 0 0;
 }
 
 .board-info {
-  font-size: 24px;
+  font-size: 24rem;
   /*color: #606060;*/
-  margin: 15px;
+  margin: 15rem;
 }
 
 .board-info-number {
-  font-size: 32px;
+  font-size: 32rem;
 }
 
 .board-info-text {
@@ -116,26 +133,32 @@ body {
   bottom:0;
   right:0;*/
   float: right;
-  margin-top: 6px;
+  margin-top: 6rem;
 }
 
 .board-info-combo {
-  letter-spacing: 4px;
+  letter-spacing: 4rem;
 }
 
 .board {
   text-align: center;
-  margin: 14px 0;
+  margin: 14rem 0;
 }
 
 .board-row {
-  height: 42px;
+  height: 42rem;
 }
 
 .orb {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 40rem;
+  height: 40rem;
   border-radius: 100%;
-  margin: 1px;
+  margin: 1rem;
+}
+
+
+.loader-wrapper {
+  font-size: 100rem;
+  /*margin: 100rem auto;*/
 }
