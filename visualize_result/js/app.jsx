@@ -168,7 +168,7 @@ class AppBody extends React.Component {
         <div className="main-info-container">
           <div>
             <span className="main-info-number emphasis">{board_data.max_combo}</span>
-            <span className="main-info-text"> Combos Max</span>
+            <span className="main-info-text"> Combos</span>
           </div>
           <div>
             <span className="main-info-number emphasis">{board_data.combo_to_boards[board_data.max_combo].length}</span>

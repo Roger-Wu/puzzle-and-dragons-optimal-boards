@@ -21091,7 +21091,7 @@ class AppBody extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
           __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
             "span",
             { className: "main-info-text" },
-            " Combos Max"
+            " Combos"
           )
         ),
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
