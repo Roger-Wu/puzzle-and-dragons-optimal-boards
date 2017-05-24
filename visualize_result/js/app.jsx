@@ -47,6 +47,11 @@ class App extends React.Component {
   }
 
   load_orb_config(option_value) {
+    console.log(option_value);
+    if (!option_value) {
+      return;
+    }
+
     let orb_config = option_value;
 
     // if data has been fetched, don't fetch again

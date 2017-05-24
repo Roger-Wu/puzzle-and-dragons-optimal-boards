@@ -19,12 +19,12 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #EEE;
   font-weight: 100;
-  color: #666;
+  color: black;
 }
 
 .emphasis {
   font-weight: 400;
-  color: black;
+  color: #444;
 }
 
 .top-container {

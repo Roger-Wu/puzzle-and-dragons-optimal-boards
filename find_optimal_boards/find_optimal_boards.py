@@ -11,8 +11,8 @@ from utils import comb, unique_permutations
 
 # configs
 threads = 4
-orb_counts = [26, 3, 1]
-combo_threshold = 2
+orb_counts = [20, 3, 3, 3, 1]
+combo_threshold = 8
 
 # constants
 row_size = 5

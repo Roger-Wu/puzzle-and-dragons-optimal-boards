@@ -16,6 +16,9 @@ Find optimal boards when the number of a kind of orb > 15
   * use React.js + Webpack
 
 ## Results
+
+[See the visualized results here](https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/visualize_result/optimal_boards.html)
+
 <table>
   <tr>
     <th>Orb Config</th>
