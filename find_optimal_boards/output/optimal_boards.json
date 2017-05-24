@@ -10,7 +10,7 @@
             "2": 4051,
             "3": 13
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 3,
             "main_combo_count": 2,
             "main_matched_count": 26,
@@ -52,7 +52,7 @@
             "2": 4816,
             "3": 19
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 3,
             "main_combo_count": 2,
             "main_matched_count": 26,
@@ -93,7 +93,7 @@
             "3": 537,
             "4": 1
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 4,
             "main_combo_count": 3,
             "main_matched_count": 24,
@@ -139,7 +139,7 @@
             "3": 873,
             "4": 1
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 4,
             "main_combo_count": 3,
             "main_matched_count": 24,
@@ -184,7 +184,7 @@
             "4": 374,
             "5": 6
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 5,
             "main_combo_count": 3,
             "main_matched_count": 23,
@@ -234,7 +234,7 @@
             "4": 1615,
             "5": 14
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 5,
             "main_combo_count": 3,
             "main_matched_count": 24,
@@ -283,7 +283,7 @@
             "5": 389,
             "6": 2
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 6,
             "main_combo_count": 4,
             "main_matched_count": 20,
@@ -337,7 +337,7 @@
             "5": 586,
             "6": 2
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 6,
             "main_combo_count": 4,
             "main_matched_count": 20,
@@ -391,7 +391,7 @@
             "4": 18196,
             "5": 73
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 5,
             "main_combo_count": 4,
             "main_matched_count": 23,
@@ -441,7 +441,7 @@
             "5": 2747,
             "6": 10
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 6,
             "main_combo_count": 4,
             "main_matched_count": 23,
@@ -496,7 +496,7 @@
             "5": 1552,
             "6": 5
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 6,
             "main_combo_count": 4,
             "main_matched_count": 23,
@@ -549,7 +549,7 @@
             "6": 218,
             "7": 1
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -607,7 +607,7 @@
             "6": 602,
             "7": 3
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -665,7 +665,7 @@
             "6": 420,
             "7": 2
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -723,7 +723,7 @@
             "6": 1369,
             "7": 3
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -781,7 +781,7 @@
             "6": 1369,
             "7": 3
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -840,7 +840,7 @@
             "6": 852,
             "7": 2
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -897,7 +897,7 @@
             "7": 142,
             "8": 3
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 8,
             "main_combo_count": 5,
             "main_matched_count": 20,
@@ -958,7 +958,7 @@
         "combo_to_board_count": {
             "7": 199
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 7,
             "main_combo_count": 5,
             "main_matched_count": 21,
@@ -1017,7 +1017,7 @@
             "7": 1054,
             "8": 25
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 8,
             "main_combo_count": 5,
             "main_matched_count": 20,
@@ -1078,7 +1078,7 @@
         "combo_to_board_count": {
             "8": 163
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 8,
             "main_combo_count": 6,
             "main_matched_count": 20,
@@ -1140,7 +1140,7 @@
             "8": 1492,
             "9": 6
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 9,
             "main_combo_count": 6,
             "main_matched_count": 20,
@@ -1205,7 +1205,7 @@
             "7": 2808,
             "8": 95
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 8,
             "main_combo_count": 6,
             "main_matched_count": 20,
@@ -1266,7 +1266,7 @@
             "8": 974,
             "9": 2
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 9,
             "main_combo_count": 6,
             "main_matched_count": 18,
@@ -1331,7 +1331,7 @@
             "8": 5058,
             "9": 100
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 9,
             "main_combo_count": 6,
             "main_matched_count": 18,
@@ -1396,7 +1396,7 @@
             "8": 15451,
             "9": 528
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 9,
             "main_combo_count": 5,
             "main_matched_count": 17,
@@ -1461,7 +1461,7 @@
             "8": 32300,
             "9": 891
         },
-        "best_board_obj": {
+        "optimal_board_obj": {
             "combo_count": 9,
             "main_combo_count": 5,
             "main_matched_count": 16,
