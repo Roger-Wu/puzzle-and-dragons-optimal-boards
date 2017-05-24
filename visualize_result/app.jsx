@@ -6,7 +6,7 @@ import Select from "react-select";
 // import Select, {Option, OptGroup} from 'rc-select';
 
 const orb_configs = ["26-4", "26-3-1", "25-5", "25-3-2", "24-6", "24-3-3", "23-7", "23-4-3", "22-8", "22-5-3", "22-3-3-2", "21-9", "21-3-3-3", "20-10", "19-11", "18-12", "17-13", "16-14"];
-let initial_orb_config = "21-3-3-3";
+let initial_orb_config = "18-12";
 
 class App extends React.Component {
   constructor(props, context) {
