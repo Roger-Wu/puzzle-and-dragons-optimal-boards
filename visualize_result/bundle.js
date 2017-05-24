@@ -9592,14 +9592,14 @@ module.exports = getIteratorFn;
 
 class Board extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
-    var rows = this.props.board.map(function (row_str) {
-      var color_strs = row_str.split(' ');
-      var row_orbs = color_strs.map(function (color_str) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'orb orb-color-' + color_str }, null);
+    var rows = this.props.board.map(function (row_str, index) {
+      var color_strs = row_str.split(" ");
+      var row_orbs = color_strs.map(function (color_str, index) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "orb orb-color-" + color_str, key: index }, null);
       });
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'board-row' }, row_orbs);
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-row", key: index }, row_orbs);
     });
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'board' }, rows);
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board" }, rows);
   }
 }
 
@@ -9613,66 +9613,66 @@ class BoardCard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     //   `${board_obj.main_matched_count} matched main orbs`,
     //   `${board_obj.drop_times} times of dropping`,
     // ];
-    var key = board_obj.board.join(' ');
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'board-card', key: key }, [__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'board-index' }, `${index}`), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'div',
-      { className: 'board-info' },
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-card" }, [__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-index", key: "board-index" }, `${index}`), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "div",
+      { className: "board-info", key: "board-info" },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
+        "div",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-number board-info-combo emphasis' },
+          "span",
+          { className: "board-info-number board-info-combo emphasis" },
           board_obj.main_combo_count,
-          '+',
+          "+",
           board_obj.combo_count - board_obj.main_combo_count
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-text' },
-          ' combos'
+          "span",
+          { className: "board-info-text" },
+          " combos"
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
+        "div",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-number emphasis' },
+          "span",
+          { className: "board-info-number emphasis" },
           board_obj.main_matched_count
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-text' },
-          ' matched main orbs'
+          "span",
+          { className: "board-info-text" },
+          " matched main orbs"
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
+        "div",
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-number emphasis' },
+          "span",
+          { className: "board-info-number emphasis" },
           board_obj.drop_times
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'span',
-          { className: 'board-info-text' },
-          ' times of dropping'
+          "span",
+          { className: "board-info-text" },
+          " times of dropping"
         )
       )
     ),
     // infos.map(function(info) {
-    //   return React.createElement('div', {className: 'board-info'}, info);
+    //   return React.createElement("div", {className: "board-info"}, info);
     // }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Board, { board: board_obj.board }, null)]);
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Board, { board: board_obj.board, key: "board" }, null)]);
   }
 }
 
 class BoardCardsContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'board-cards-container' }, this.props.board_objs.map(function (board_obj, index) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BoardCard, { board_obj: board_obj, index: index + 1 }, null);
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-cards-container" }, this.props.board_objs.map(function (board_obj, index) {
+      let key = board_obj.board.join(" ");
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BoardCard, { board_obj: board_obj, index: index + 1, key: key }, null);
     }));
   }
 }
@@ -20917,6 +20917,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const orb_configs = ["26-4", "26-3-1", "25-5", "25-3-2", "24-6", "24-3-3", "23-7", "23-4-3", "22-8", "22-5-3", "22-3-3-2", "21-9", "21-3-3-3", "20-10", "19-11", "18-12", "17-13", "16-14"];
 let initial_orb_config = "18-12";
 
+function orb_config_to_url(orb_config) {
+  return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
+}
+
 class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   constructor(props, context) {
     super(props, context);
@@ -20953,7 +20957,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   }
 
   load_orb_config(option_value) {
-    console.log(option_value);
+    // console.log(option_value);
     if (!option_value) {
       return;
     }
@@ -20974,9 +20978,9 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
       selected_orb_config: orb_config
     });
 
-    let url = "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/done_" + orb_config + "/report.json";
+    let url = orb_config_to_url(orb_config);
     __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.getJSON(url, data => {
-      console.log(data);
+      // console.log(data);
       this.sort_boards(data.combo_to_boards[data.max_combo]);
       this.state.fetched_board_data[option_value] = data;
       this.setState({
