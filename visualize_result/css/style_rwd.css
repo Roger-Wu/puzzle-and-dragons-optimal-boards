@@ -30,6 +30,7 @@ body {
 .top-container {
   background-color: #38291A;
   padding: 40rem 10rem 40rem;
+  margin-bottom: 30px;
   /*box-shadow: 0rem 2rem 8rem #444;*/
   background-image: url("../images/banner.png");
   background-repeat: no-repeat;
