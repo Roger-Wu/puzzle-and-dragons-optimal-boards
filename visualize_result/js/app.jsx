@@ -52,10 +52,11 @@ class App extends React.Component {
       option_value = this.default_option_value;
     }
 
+    this.setState({
+      selected_option_value: option_value
+    });
+
     if (this.state.fetched_board_data.hasOwnProperty(option_value)) {
-      this.setState({
-        selected_option_value: option_value
-      })
       return;
     }
 

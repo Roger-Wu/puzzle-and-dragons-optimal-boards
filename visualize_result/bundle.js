@@ -20912,10 +20912,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-// import Select, {Option, OptGroup} from 'rc-select';
-
-// const orb_configs = ["26-4", "26-3-1", "25-5", "25-3-2", "24-6", "24-3-3", "23-7", "23-4-3", "22-8", "22-5-3", "22-3-3-2", "21-9", "21-3-3-3", "20-10", "19-11", "18-12", "17-13", "16-14"];
-// let initial_orb_config = "18-12";
 
 function orb_config_to_url(orb_config) {
   if (!orb_config || orb_config === "optimal_boards") {
@@ -20950,10 +20946,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
       option_value = this.default_option_value;
     }
 
+    this.setState({
+      selected_option_value: option_value
+    });
+
     if (this.state.fetched_board_data.hasOwnProperty(option_value)) {
-      this.setState({
-        selected_option_value: option_value
-      });
       return;
     }
 
@@ -20961,7 +20958,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
     // let default_option_value = this.default_option_value;
     // let default_option_label = this.default_option_label;
     __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.getJSON(url, data => {
-      console.log(data);
+      // console.log(data);
 
       if (option_value === this.default_option_value) {
         this.state.fetched_board_data[option_value] = data;
@@ -21000,7 +20997,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   }
 
   render() {
-    console.log(this.state.fetched_board_data[this.state.selected_option_value]);
     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       "div",
       { className: "app" },
@@ -21052,8 +21048,6 @@ class Spinner extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
 class AppBody extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
   render() {
     let board_data = this.props.board_data;
-    console.log('in AppBody');
-    console.log(this.props);
     return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       "div",
       { className: "app-body" },
