@@ -41,7 +41,7 @@ def compare(obj1, obj2):
 #         + board_obj['main_matched_count'] * 10
 #     )
 
-best_board_objs = []
+optimal_board_objs = []
 
 for folder_name in os.listdir(output_folder):
     if not folder_name.startswith(folder_prefix):
@@ -63,18 +63,18 @@ for folder_name in os.listdir(output_folder):
         # for board_obj in max_combo_board_objs:
         #     print(board_obj['main_combo_count'], board_obj['main_matched_count'], board_obj['matched_count'], board_obj['drop_times'])
 
-        best_board_obj = OrderedDict([
+        optimal_board_obj = OrderedDict([
             ('orb_config', orb_config),
             ('orb_combination', data['orb_combination']),
             ('max_combo', data['max_combo']),
             ('combo_to_board_count', data['combo_to_board_count']),
-            ('best_board_obj', max_combo_board_objs[0]),
+            ('optimal_board_obj', max_combo_board_objs[0]),
         ])
-        best_board_objs.append(best_board_obj)
+        optimal_board_objs.append(optimal_board_obj)
 
-best_board_objs.sort(key=lambda obj: obj['orb_config'], reverse=True)
-# print(best_board_objs)
+optimal_board_objs.sort(key=lambda obj: obj['orb_combination'], reverse=True)
+# print(optimal_board_objs)
 
 with open(output_folder + output_file_name, 'w') as out_file:
-    json.dump(best_board_objs, out_file, indent=4)
+    json.dump(optimal_board_objs, out_file, indent=4)
 
