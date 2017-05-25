@@ -21,19 +21,27 @@ export class BoardCard extends React.Component {
     // var infos = [
     //   `${board_obj.combo_count} combos`,
     //   `${board_obj.main_combo_count} main combos`,
-    //   `${board_obj.main_matched_count} matched main orbs`,
+    //   `${board_obj.matched_main_count} matched main orbs`,
     //   `${board_obj.drop_times} times of dropping`,
     // ];
     return React.createElement("div", {className: "board-card"}, [
       React.createElement("div", {className: "board-index", key: "board-index"}, `${title}`),
       <div className="board-info" key="board-info">
         <div>
-          <span className="board-info-number board-info-combo emphasis">{board_obj.main_combo_count}+{board_obj.combo_count - board_obj.main_combo_count}</span>
+          <span className="board-info-number emphasis">
+            <span>{board_obj.main_combo_count}</span>
+            <span className="board-info-plus">+</span>
+            <span>{board_obj.combo_count - board_obj.main_combo_count}</span>
+          </span>
           <span className="board-info-text"> combos</span>
         </div>
         <div>
-          <span className="board-info-number emphasis">{board_obj.main_matched_count}</span>
-          <span className="board-info-text"> matched main orbs</span>
+          <span className="board-info-number emphasis">
+            <span>{board_obj.matched_main_count}</span>
+            <span className="board-info-plus">+</span>
+            <span>{board_obj.matched_other_count}</span>
+          </span>
+          <span className="board-info-text"> orbs matched</span>
         </div>
         <div>
           <span className="board-info-number emphasis">{board_obj.drop_times}</span>

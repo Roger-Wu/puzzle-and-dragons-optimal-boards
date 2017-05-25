@@ -9650,7 +9650,7 @@ var BoardCard = exports.BoardCard = function (_React$Component2) {
       // var infos = [
       //   `${board_obj.combo_count} combos`,
       //   `${board_obj.main_combo_count} main combos`,
-      //   `${board_obj.main_matched_count} matched main orbs`,
+      //   `${board_obj.matched_main_count} matched main orbs`,
       //   `${board_obj.drop_times} times of dropping`,
       // ];
 
@@ -9662,10 +9662,22 @@ var BoardCard = exports.BoardCard = function (_React$Component2) {
           null,
           _react2.default.createElement(
             "span",
-            { className: "board-info-number board-info-combo emphasis" },
-            board_obj.main_combo_count,
-            "+",
-            board_obj.combo_count - board_obj.main_combo_count
+            { className: "board-info-number emphasis" },
+            _react2.default.createElement(
+              "span",
+              null,
+              board_obj.main_combo_count
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "board-info-plus" },
+              "+"
+            ),
+            _react2.default.createElement(
+              "span",
+              null,
+              board_obj.combo_count - board_obj.main_combo_count
+            )
           ),
           _react2.default.createElement(
             "span",
@@ -9679,12 +9691,26 @@ var BoardCard = exports.BoardCard = function (_React$Component2) {
           _react2.default.createElement(
             "span",
             { className: "board-info-number emphasis" },
-            board_obj.main_matched_count
+            _react2.default.createElement(
+              "span",
+              null,
+              board_obj.matched_main_count
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "board-info-plus" },
+              "+"
+            ),
+            _react2.default.createElement(
+              "span",
+              null,
+              board_obj.matched_other_count
+            )
           ),
           _react2.default.createElement(
             "span",
             { className: "board-info-text" },
-            " matched main orbs"
+            " orbs matched"
           )
         ),
         _react2.default.createElement(
@@ -20986,9 +21012,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function orb_config_to_url(orb_config) {
   if (!orb_config || orb_config === "optimal_boards") {
-    return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/optimal_boards.json";
+    return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/optimal_boards.json";
+    // "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/optimal_boards.json";
   }
-  return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
+  return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
+  // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
 }
 
 var App = function (_React$Component) {
@@ -21003,7 +21031,7 @@ var App = function (_React$Component) {
     _this.default_option_label = "All Optimal Boards";
     _this.sorting_orders = [
     // { property: "combo_count", ascending: false},
-    { property: "main_combo_count", ascending: false }, { property: "main_matched_count", ascending: false }, { property: "drop_times", ascending: true }];
+    { property: "main_combo_count", ascending: false }, { property: "matched_main_count", ascending: false }, { property: "drop_times", ascending: true }];
 
     _this.state = {
       options: [{ value: _this.default_option_value, label: _this.default_option_label }],
@@ -21047,6 +21075,7 @@ var App = function (_React$Component) {
           });
           // prepend default option
           options.unshift({ value: _this2.default_option_value, label: _this2.default_option_label });
+          console.log("start setState");
           _this2.setState({
             options: options,
             selected_option_value: option_value
@@ -21054,6 +21083,7 @@ var App = function (_React$Component) {
         } else {
           _this2.sort_boards(data.combo_to_boards[data.max_combo]);
           _this2.state.fetched_board_data[option_value] = data;
+          console.log("start setState");
           _this2.setState({
             selected_option_value: option_value
           });

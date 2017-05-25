@@ -92,7 +92,7 @@ body {
 }
 
 .orb-color-4 {
-  background-color: yellow;
+  background-color: #FFC107;
 }
 
 .orb-color-5 {
@@ -152,8 +152,8 @@ body {
   margin-top: 6rem;
 }
 
-.board-info-combo {
-  letter-spacing: 4rem;
+.board-info-plus {
+  margin: 0 4rem;
 }
 
 .board {
