@@ -80,6 +80,7 @@ optimal_board_objs.sort(key=lambda obj: obj['orb_combination'], reverse=True)
 with open(output_folder + output_file_name, 'w') as out_file:
     json.dump(optimal_board_objs, out_file, separators=(',',':'))
 
+# github.io will compress json request, so we don't need this actually
 with open(output_folder + output_file_name, 'rb') as f_in:
     with gzip.open(output_folder + output_file_name + '.gz', 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
