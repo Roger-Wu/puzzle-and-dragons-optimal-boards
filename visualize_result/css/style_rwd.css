@@ -80,15 +80,15 @@ body {
 }
 
 .orb-color-1 {
-  background-color: red;
+  background-color: #F44336;
 }
 
 .orb-color-2 {
-  background-color: blue;
+  background-color: #2196F3;
 }
 
 .orb-color-3 {
-  background-color: green;
+  background-color: #4CAF50;
 }
 
 .orb-color-4 {
@@ -100,7 +100,7 @@ body {
 }
 
 .orb-color-6 {
-  background-color: #AAA;
+  background-color: #CCC;
 }
 
 

@@ -21013,10 +21013,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function orb_config_to_url(orb_config) {
   if (!orb_config || orb_config === "optimal_boards") {
     return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/optimal_boards.json";
-    // "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/optimal_boards.json";
+    // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/compact/optimal_boards.json";
   }
   return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
-  // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
+  // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
 }
 
 var App = function (_React$Component) {
@@ -21075,7 +21075,6 @@ var App = function (_React$Component) {
           });
           // prepend default option
           options.unshift({ value: _this2.default_option_value, label: _this2.default_option_label });
-          console.log("start setState");
           _this2.setState({
             options: options,
             selected_option_value: option_value
@@ -21083,7 +21082,6 @@ var App = function (_React$Component) {
         } else {
           _this2.sort_boards(data.combo_to_boards[data.max_combo]);
           _this2.state.fetched_board_data[option_value] = data;
-          console.log("start setState");
           _this2.setState({
             selected_option_value: option_value
           });

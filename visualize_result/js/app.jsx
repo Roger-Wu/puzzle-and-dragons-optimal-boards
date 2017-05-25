@@ -7,11 +7,11 @@ import Select from "react-select";
 
 function orb_config_to_url(orb_config) {
   if (!orb_config || orb_config === "optimal_boards") {
-    // return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/optimal_boards.json";
-    return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/optimal_boards.json";
+    return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/optimal_boards.json";
+    // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/compact/optimal_boards.json";
   }
-  // return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
-  return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
+  return "https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
+  // return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/compact/done_" + orb_config + "/report.json";
 }
 
 class App extends React.Component {
