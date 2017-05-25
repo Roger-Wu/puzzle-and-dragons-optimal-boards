@@ -1,5 +1,5 @@
-temp*
-log*
+temp/*
+temp_*
 old_*
 
 # Byte-compiled / optimized / DLL files
