@@ -24,6 +24,7 @@ class App extends React.Component {
       // { property: "combo_count", ascending: false},
       { property: "main_combo_count", ascending: false},
       { property: "matched_main_count", ascending: false},
+      { property: "matched_count", ascending: false},
       { property: "drop_times", ascending: true},
     ];
 
