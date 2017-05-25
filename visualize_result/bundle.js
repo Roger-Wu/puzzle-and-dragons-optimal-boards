@@ -9580,105 +9580,159 @@ module.exports = getIteratorFn;
 
 /***/ }),
 /* 83 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.BoardCardsContainer = exports.BoardCard = undefined;
 
-class Board extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  render() {
-    var rows = this.props.board.map(function (row_str, index) {
-      var color_strs = row_str.split(" ");
-      var row_orbs = color_strs.map(function (color_str, index) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { className: "orb orb-color-" + color_str, key: index }, null);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(34);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Board = function (_React$Component) {
+  _inherits(Board, _React$Component);
+
+  function Board() {
+    _classCallCheck(this, Board);
+
+    return _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).apply(this, arguments));
+  }
+
+  _createClass(Board, [{
+    key: "render",
+    value: function render() {
+      var rows = this.props.board.map(function (row_str, index) {
+        var color_strs = row_str.split(" ");
+        var row_orbs = color_strs.map(function (color_str, index) {
+          return _react2.default.createElement("span", { className: "orb orb-color-" + color_str, key: index }, null);
+        });
+        return _react2.default.createElement("div", { className: "board-row", key: index }, row_orbs);
       });
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-row", key: index }, row_orbs);
-    });
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board" }, rows);
-  }
-}
+      return _react2.default.createElement("div", { className: "board" }, rows);
+    }
+  }]);
 
-class BoardCard extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  render() {
-    var { board_obj, title } = this.props;
-    // var infos = [
-    //   `${board_obj.combo_count} combos`,
-    //   `${board_obj.main_combo_count} main combos`,
-    //   `${board_obj.main_matched_count} matched main orbs`,
-    //   `${board_obj.drop_times} times of dropping`,
-    // ];
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-card" }, [__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-index", key: "board-index" }, `${title}`), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      { className: "board-info", key: "board-info" },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+  return Board;
+}(_react2.default.Component);
+
+var BoardCard = exports.BoardCard = function (_React$Component2) {
+  _inherits(BoardCard, _React$Component2);
+
+  function BoardCard() {
+    _classCallCheck(this, BoardCard);
+
+    return _possibleConstructorReturn(this, (BoardCard.__proto__ || Object.getPrototypeOf(BoardCard)).apply(this, arguments));
+  }
+
+  _createClass(BoardCard, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          board_obj = _props.board_obj,
+          title = _props.title;
+      // var infos = [
+      //   `${board_obj.combo_count} combos`,
+      //   `${board_obj.main_combo_count} main combos`,
+      //   `${board_obj.main_matched_count} matched main orbs`,
+      //   `${board_obj.drop_times} times of dropping`,
+      // ];
+
+      return _react2.default.createElement("div", { className: "board-card" }, [_react2.default.createElement("div", { className: "board-index", key: "board-index" }, "" + title), _react2.default.createElement(
         "div",
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-number board-info-combo emphasis" },
-          board_obj.main_combo_count,
-          "+",
-          board_obj.combo_count - board_obj.main_combo_count
+        { className: "board-info", key: "board-info" },
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-number board-info-combo emphasis" },
+            board_obj.main_combo_count,
+            "+",
+            board_obj.combo_count - board_obj.main_combo_count
+          ),
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-text" },
+            " combos"
+          )
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-text" },
-          " combos"
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-number emphasis" },
+            board_obj.main_matched_count
+          ),
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-text" },
+            " matched main orbs"
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-number emphasis" },
+            board_obj.drop_times
+          ),
+          _react2.default.createElement(
+            "span",
+            { className: "board-info-text" },
+            " times of dropping"
+          )
         )
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-number emphasis" },
-          board_obj.main_matched_count
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-text" },
-          " matched main orbs"
-        )
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-number emphasis" },
-          board_obj.drop_times
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "span",
-          { className: "board-info-text" },
-          " times of dropping"
-        )
-      )
-    ),
-    // infos.map(function(info) {
-    //   return React.createElement("div", {className: "board-info"}, info);
-    // }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Board, { board: board_obj.board, key: "board" }, null)]);
+      // infos.map(function(info) {
+      //   return React.createElement("div", {className: "board-info"}, info);
+      // }),
+      _react2.default.createElement(Board, { board: board_obj.board, key: "board" }, null)]);
+    }
+  }]);
+
+  return BoardCard;
+}(_react2.default.Component);
+
+var BoardCardsContainer = exports.BoardCardsContainer = function (_React$Component3) {
+  _inherits(BoardCardsContainer, _React$Component3);
+
+  function BoardCardsContainer() {
+    _classCallCheck(this, BoardCardsContainer);
+
+    return _possibleConstructorReturn(this, (BoardCardsContainer.__proto__ || Object.getPrototypeOf(BoardCardsContainer)).apply(this, arguments));
   }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = BoardCard;
 
+  _createClass(BoardCardsContainer, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement("div", { className: "board-cards-container" }, this.props.board_objs.map(function (board_obj, index) {
+        var key = board_obj.board.join(" ");
+        return _react2.default.createElement(BoardCard, { board_obj: board_obj, title: index + 1, key: key }, null);
+      }));
+    }
+  }]);
 
-class BoardCardsContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-  render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "board-cards-container" }, this.props.board_objs.map(function (board_obj, index) {
-      let key = board_obj.board.join(" ");
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BoardCard, { board_obj: board_obj, title: index + 1, key: key }, null);
-    }));
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["b"] = BoardCardsContainer;
-
+  return BoardCardsContainer;
+}(_react2.default.Component);
 
 // export default BoardCardsContainer;
 
@@ -20897,24 +20951,38 @@ module.exports = Select;
 
 /***/ }),
 /* 86 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_select__);
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _jquery = __webpack_require__(84);
 
+var _jquery2 = _interopRequireDefault(_jquery);
 
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(34);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _BoardCardsContainer = __webpack_require__(83);
+
+var _reactSelect = __webpack_require__(85);
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function orb_config_to_url(orb_config) {
   if (!orb_config || orb_config === "optimal_boards") {
@@ -20923,198 +20991,278 @@ function orb_config_to_url(orb_config) {
   return "https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/find_optimal_boards/output/done_" + orb_config + "/report.json";
 }
 
-class App extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
-  constructor(props, context) {
-    super(props, context);
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
 
-    this.default_option_value = "optimal_boards";
-    this.default_option_label = "All Optimal Boards";
-    this.sorting_orders = [
+  function App(props, context) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
+
+    _this.default_option_value = "optimal_boards";
+    _this.default_option_label = "All Optimal Boards";
+    _this.sorting_orders = [
     // { property: "combo_count", ascending: false},
     { property: "main_combo_count", ascending: false }, { property: "main_matched_count", ascending: false }, { property: "drop_times", ascending: true }];
 
-    this.state = {
-      options: [{ value: this.default_option_value, label: this.default_option_label }],
-      selected_option_value: this.default_option_value,
+    _this.state = {
+      options: [{ value: _this.default_option_value, label: _this.default_option_label }],
+      selected_option_value: _this.default_option_value,
       fetched_board_data: {}
     };
 
-    this.fetch_data = this.fetch_data.bind(this);
-    this.fetch_data(this.default_option_value);
+    _this.fetch_data = _this.fetch_data.bind(_this);
+    _this.fetch_data(_this.default_option_value);
+    return _this;
   }
 
-  fetch_data(option_value) {
-    if (!option_value) {
-      option_value = this.default_option_value;
-    }
+  _createClass(App, [{
+    key: "fetch_data",
+    value: function fetch_data(option_value) {
+      var _this2 = this;
 
-    this.setState({
-      selected_option_value: option_value
-    });
-
-    if (this.state.fetched_board_data.hasOwnProperty(option_value)) {
-      return;
-    }
-
-    let url = orb_config_to_url(option_value);
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.getJSON(url, data => {
-      // console.log(data);
-
-      if (option_value === this.default_option_value) {
-        this.state.fetched_board_data[option_value] = data;
-        let options = data.map(optimal_board_obj => {
-          return {
-            value: optimal_board_obj.orb_config,
-            label: optimal_board_obj.orb_config.replace(/-/g, " ")
-          };
-        });
-        // prepend default option
-        options.unshift({ value: this.default_option_value, label: this.default_option_label });
-        this.setState({
-          options: options,
-          selected_option_value: option_value
-        });
-      } else {
-        this.sort_boards(data.combo_to_boards[data.max_combo]);
-        this.state.fetched_board_data[option_value] = data;
-        this.setState({
-          selected_option_value: option_value
-        });
+      if (!option_value) {
+        option_value = this.default_option_value;
       }
-    }); // .bind(this)
-  }
 
-  sort_boards(board_objs) {
-    board_objs.sort((o1, o2) => {
-      for (let order of this.sorting_orders) {
-        let { property, ascending } = order;
-        if (o1[order.property] != o2[property]) {
-          return o1[property] < o2[property] ^ ascending ? 1 : -1;
+      this.setState({
+        selected_option_value: option_value
+      });
+
+      if (this.state.fetched_board_data.hasOwnProperty(option_value)) {
+        return;
+      }
+
+      var url = orb_config_to_url(option_value);
+      _jquery2.default.getJSON(url, function (data) {
+        // console.log(data);
+
+        if (option_value === _this2.default_option_value) {
+          _this2.state.fetched_board_data[option_value] = data;
+          var options = data.map(function (optimal_board_obj) {
+            return {
+              value: optimal_board_obj.orb_config,
+              label: optimal_board_obj.orb_config.replace(/-/g, " ")
+            };
+          });
+          // prepend default option
+          options.unshift({ value: _this2.default_option_value, label: _this2.default_option_label });
+          _this2.setState({
+            options: options,
+            selected_option_value: option_value
+          });
+        } else {
+          _this2.sort_boards(data.combo_to_boards[data.max_combo]);
+          _this2.state.fetched_board_data[option_value] = data;
+          _this2.setState({
+            selected_option_value: option_value
+          });
         }
-      }
-      return 0;
-    });
-  }
+      }); // .bind(this)
+    }
+  }, {
+    key: "sort_boards",
+    value: function sort_boards(board_objs) {
+      var _this3 = this;
 
-  render() {
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      "div",
-      { className: "app" },
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+      board_objs.sort(function (o1, o2) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = _this3.sorting_orders[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var order = _step.value;
+            var property = order.property,
+                ascending = order.ascending;
+
+            if (o1[order.property] != o2[property]) {
+              return o1[property] < o2[property] ^ ascending ? 1 : -1;
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        return 0;
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
         "div",
-        { className: "top-container" },
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        { className: "app" },
+        _react2.default.createElement(
           "div",
-          { className: "title" },
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            "span",
-            { className: "title-text" },
-            "Puzzle & Dragons Optimal Boards"
+          { className: "top-container" },
+          _react2.default.createElement(
+            "div",
+            { className: "title" },
+            _react2.default.createElement(
+              "span",
+              { className: "title-text" },
+              "Puzzle & Dragons Optimal Boards"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "selector-wrapper" },
+            _react2.default.createElement(_reactSelect2.default, {
+              value: this.state.selected_option_value,
+              options: this.state.options,
+              onChange: this.fetch_data
+            })
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        !this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value) ? _react2.default.createElement(Spinner, null) : this.state.selected_option_value === this.default_option_value ? _react2.default.createElement(OptimalBoards, { board_data: this.state.fetched_board_data[this.state.selected_option_value] }) : _react2.default.createElement(AppBody, { board_data: this.state.fetched_board_data[this.state.selected_option_value] })
+      );
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
+
+var Spinner = function (_React$Component2) {
+  _inherits(Spinner, _React$Component2);
+
+  function Spinner() {
+    _classCallCheck(this, Spinner);
+
+    return _possibleConstructorReturn(this, (Spinner.__proto__ || Object.getPrototypeOf(Spinner)).apply(this, arguments));
+  }
+
+  _createClass(Spinner, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "loader-wrapper" },
+        _react2.default.createElement(
           "div",
-          { className: "selector-wrapper" },
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_react_select___default.a, {
-            value: this.state.selected_option_value,
-            options: this.state.options,
-            onChange: this.fetch_data
+          { className: "sk-cube-grid" },
+          _react2.default.createElement("div", { className: "sk-cube sk-cube1" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube2" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube3" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube4" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube5" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube6" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube7" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube8" }),
+          _react2.default.createElement("div", { className: "sk-cube sk-cube9" })
+        )
+      );
+    }
+  }]);
+
+  return Spinner;
+}(_react2.default.Component);
+
+var OptimalBoards = function (_React$Component3) {
+  _inherits(OptimalBoards, _React$Component3);
+
+  function OptimalBoards() {
+    _classCallCheck(this, OptimalBoards);
+
+    return _possibleConstructorReturn(this, (OptimalBoards.__proto__ || Object.getPrototypeOf(OptimalBoards)).apply(this, arguments));
+  }
+
+  _createClass(OptimalBoards, [{
+    key: "render",
+    value: function render() {
+      var board_data = this.props.board_data;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "app-body" },
+        _react2.default.createElement(
+          "div",
+          { className: "board-cards-container" },
+          board_data.map(function (optimal_board_data) {
+            return _react2.default.createElement(_BoardCardsContainer.BoardCard, {
+              board_obj: optimal_board_data.optimal_board_obj,
+              title: optimal_board_data.orb_combination.join(" "),
+              key: optimal_board_data.orb_config
+            });
           })
         )
-      ),
-      !this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value) ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Spinner, null) : this.state.selected_option_value === this.default_option_value ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(OptimalBoards, { board_data: this.state.fetched_board_data[this.state.selected_option_value] }) : __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(AppBody, { board_data: this.state.fetched_board_data[this.state.selected_option_value] })
-    );
-  }
-}
+      );
+    }
+  }]);
 
-class Spinner extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
-  render() {
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      "div",
-      { className: "loader-wrapper" },
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-        "div",
-        { className: "sk-cube-grid" },
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube1" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube2" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube3" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube4" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube5" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube6" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube7" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube8" }),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", { className: "sk-cube sk-cube9" })
-      )
-    );
-  }
-}
+  return OptimalBoards;
+}(_react2.default.Component);
 
-class OptimalBoards extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
-  render() {
-    let { board_data } = this.props;
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      "div",
-      { className: "app-body" },
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-        "div",
-        { className: "board-cards-container" },
-        board_data.map(optimal_board_data => {
-          return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__["a" /* BoardCard */], {
-            board_obj: optimal_board_data.optimal_board_obj,
-            title: optimal_board_data.orb_combination.join(" "),
-            key: optimal_board_data.orb_config
-          });
-        })
-      )
-    );
-  }
-}
+var AppBody = function (_React$Component4) {
+  _inherits(AppBody, _React$Component4);
 
-class AppBody extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
-  render() {
-    let { board_data } = this.props;
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      "div",
-      { className: "app-body" },
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+  function AppBody() {
+    _classCallCheck(this, AppBody);
+
+    return _possibleConstructorReturn(this, (AppBody.__proto__ || Object.getPrototypeOf(AppBody)).apply(this, arguments));
+  }
+
+  _createClass(AppBody, [{
+    key: "render",
+    value: function render() {
+      var board_data = this.props.board_data;
+
+      return _react2.default.createElement(
         "div",
-        { className: "main-info-container" },
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        { className: "app-body" },
+        _react2.default.createElement(
           "div",
-          null,
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            "span",
-            { className: "main-info-number emphasis" },
-            board_data.max_combo
+          { className: "main-info-container" },
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "span",
+              { className: "main-info-number emphasis" },
+              board_data.max_combo
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "main-info-text" },
+              " Combos"
+            )
           ),
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            "span",
-            { className: "main-info-text" },
-            " Combos"
+          _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "span",
+              { className: "main-info-number emphasis" },
+              board_data.combo_to_boards[board_data.max_combo].length
+            ),
+            _react2.default.createElement(
+              "span",
+              { className: "main-info-text" },
+              " Boards"
+            )
           )
         ),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-          "div",
-          null,
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            "span",
-            { className: "main-info-number emphasis" },
-            board_data.combo_to_boards[board_data.max_combo].length
-          ),
-          __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-            "span",
-            { className: "main-info-text" },
-            " Boards"
-          )
-        )
-      ),
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__BoardCardsContainer_jsx__["b" /* BoardCardsContainer */], { board_objs: board_data.combo_to_boards[board_data.max_combo] })
-    );
-  }
-}
+        _react2.default.createElement(_BoardCardsContainer.BoardCardsContainer, { board_objs: board_data.combo_to_boards[board_data.max_combo] })
+      );
+    }
+  }]);
+
+  return AppBody;
+}(_react2.default.Component);
 
 function main() {
-  __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(App, null), document.getElementById("root"));
+  _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("root"));
 }
 
 window.onload = main;
