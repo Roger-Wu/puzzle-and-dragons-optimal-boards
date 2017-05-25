@@ -5,9 +5,11 @@ import os
 import re
 from collections import OrderedDict
 from functools import cmp_to_key
+import gzip
+import shutil
 
 
-output_folder = 'output/'
+output_folder = 'output/compact/'
 folder_prefix = 'done_'
 report_file_name = 'report.json'
 output_file_name = 'optimal_boards.json'
@@ -19,7 +21,7 @@ orb_config_names = []
 compare_order = [
     ('combo_count', 1),
     ('main_combo_count', 1),
-    ('main_matched_count', 1),
+    ('matched_main_count', 1),
     ('matched_count', 1),
     ('drop_times', -1)
 ]
@@ -52,11 +54,11 @@ for folder_name in os.listdir(output_folder):
         data = json.load(in_file, object_pairs_hook=OrderedDict)
         max_combo_board_objs = data['combo_to_boards'][ str(data['max_combo']) ]
 
-        # add more property
-        for board_obj in max_combo_board_objs:
-            matched_count = sum([matched for color, matched in board_obj['combos']])
-            board_obj['matched_count'] = matched_count
-            board_obj['matched_other_count'] = matched_count - board_obj['main_matched_count']
+        # # add more property
+        # for board_obj in max_combo_board_objs:
+        #     matched_count = sum([matched for color, matched in board_obj['combos']])
+        #     board_obj['matched_count'] = matched_count
+        #     board_obj['matched_other_count'] = matched_count - board_obj['main_matched_count']
 
         max_combo_board_objs.sort(key=cmp_to_key(compare), reverse=True)
 
@@ -76,5 +78,9 @@ optimal_board_objs.sort(key=lambda obj: obj['orb_combination'], reverse=True)
 # print(optimal_board_objs)
 
 with open(output_folder + output_file_name, 'w') as out_file:
-    json.dump(optimal_board_objs, out_file, indent=4)
+    json.dump(optimal_board_objs, out_file, separators=(',',':'))
+
+with open(output_folder + output_file_name, 'rb') as f_in:
+    with gzip.open(output_folder + output_file_name + '.gz', 'wb') as f_out:
+        shutil.copyfileobj(f_in, f_out)
 
