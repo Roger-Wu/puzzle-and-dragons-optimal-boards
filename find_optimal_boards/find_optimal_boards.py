@@ -20,7 +20,7 @@ args = parser.parse_args()
 
 # configs
 orb_counts = args.orb_counts
-combo_threshold = args.combo_threshold
+combo_threshold = args.combo_threshold[0]
 threads = args.threads
 
 # constants
