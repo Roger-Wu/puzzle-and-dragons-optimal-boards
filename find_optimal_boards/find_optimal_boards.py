@@ -11,7 +11,7 @@ from utils import comb, unique_permutations
 
 # configs
 threads = 4
-orb_counts = [20, 3, 3, 3, 1]
+orb_counts = [19, 9, 2]
 combo_threshold = 8
 
 # constants
@@ -70,6 +70,20 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
 
     start = time.time()
     for pos_tail in combinations(range(6, 30), not_fixed_orb_count):
+        comb_counter += 1
+        if comb_counter % print_interval == 0:
+            proportion = comb_counter / total_combs
+            elapsed_time = time.time() - start
+            remaining_time = elapsed_time / proportion * (1 - proportion)
+            print('fixed: {}, {:.2f} %, comb: {}, found: {}, elapsed: {:.1f}, remaining: {:.1f}'.format(
+                fixed_first_row,
+                proportion * 100,
+                comb_counter,
+                found_board_count,
+                elapsed_time,
+                remaining_time)
+            )
+
         # other_orb_positions
         pos = fixed_first_row + pos_tail
         if may_be_symmetric:
@@ -108,20 +122,6 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                     'combos': combos,
                     'board': b.get_output_board()
                 })
-
-        comb_counter += 1
-        if comb_counter % print_interval == 0:
-            proportion = comb_counter / total_combs
-            elapsed_time = time.time() - start
-            remaining_time = elapsed_time / proportion * (1 - proportion)
-            print('fixed: {}, {:.2f} %, comb: {}, found: {}, elapsed: {:.1f}, remaining: {:.1f}'.format(
-                fixed_first_row,
-                proportion * 100,
-                comb_counter,
-                found_board_count,
-                elapsed_time,
-                remaining_time)
-            )
 
     data = {'combo_to_board_count': combo_to_board_count, 'boards': boards}
     filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
