@@ -74,7 +74,7 @@ for folder_name in os.listdir(output_folder):
         ])
         optimal_board_objs.append(optimal_board_obj)
 
-optimal_board_objs.sort(key=lambda obj: obj['orb_combination'], reverse=True)
+optimal_board_objs.sort(key=lambda obj: obj['orb_combination'])
 # print(optimal_board_objs)
 
 with open(output_folder + output_file_name, 'w') as out_file:
