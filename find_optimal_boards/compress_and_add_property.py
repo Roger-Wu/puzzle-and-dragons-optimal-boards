@@ -1,9 +1,12 @@
-# collect max-combo boards from report.json files
+# make compact report.json files
+# add more property
+# sort boards
 
 import json
 import os
 import re
 from collections import OrderedDict
+from functools import cmp_to_key
 import gzip
 import shutil
 
@@ -16,6 +19,24 @@ output_file_name = 'report.json'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
+
+compare_order = [
+    ('combo_count', 1),
+    ('main_combo_count', 1),
+    ('matched_main_count', 1),
+    ('matched_count', 1),
+    ('drop_times', -1)
+]
+def compare(obj1, obj2):
+    for property, higher_better in compare_order:
+        if obj1[property] != obj2[property]:
+            if obj1[property] > obj2[property]:
+                return higher_better
+            else:
+                return higher_better * -1
+    return 0
+
+
 for folder_name in os.listdir(input_folder):
     if not folder_name.startswith(folder_prefix):
         continue
@@ -25,7 +46,7 @@ for folder_name in os.listdir(input_folder):
         continue
 
     input_file_path = input_folder + folder_name + '/' + input_file_name
-    print('compressing ' + input_file_path)
+    print('handling ' + input_file_path)
 
     with open(input_file_path, 'r') as in_file:
         data = json.load(in_file, object_pairs_hook=OrderedDict)
@@ -36,19 +57,24 @@ for folder_name in os.listdir(input_folder):
             for board_obj in board_objs:
                 matched_count = sum([matched for color, matched in board_obj['combos']])
                 board_obj['matched_count'] = matched_count
-                board_obj['matched_main_count'] = board_obj['main_matched_count']
-                board_obj['matched_other_count'] = matched_count - board_obj['main_matched_count']
-                board_obj.pop('main_matched_count', None)
 
-                board = board_obj['board']
-                board_obj.pop('board', None)
-                board_obj['board'] = board
+                if 'main_matched_count' in board_obj:
+                    board_obj['matched_main_count'] = board_obj['main_matched_count']
+                    board_obj.pop('main_matched_count', None)
+
+                board_obj['matched_other_count'] = matched_count - board_obj['matched_main_count']
+
+                # board = board_obj['board']
+                # board_obj.pop('board', None)
+                # board_obj['board'] = board
+
+            board_objs.sort(key=cmp_to_key(compare), reverse=True)
 
     if not os.path.exists(output_sub_folder):
         os.makedirs(output_sub_folder)
     with open(output_sub_folder + output_file_name, 'w') as out_file:
         json.dump(data, out_file, separators=(',',':'))
 
-    with open(output_sub_folder + output_file_name, 'rb') as f_in:
-        with gzip.open(output_sub_folder + output_file_name + '.gz', 'wb') as f_out:
-            shutil.copyfileobj(f_in, f_out)
+    # with open(output_sub_folder + output_file_name, 'rb') as f_in:
+    #     with gzip.open(output_sub_folder + output_file_name + '.gz', 'wb') as f_out:
+    #         shutil.copyfileobj(f_in, f_out)

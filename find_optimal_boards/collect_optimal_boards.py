@@ -18,30 +18,21 @@ orb_config_names = []
 # folder_names = os.listdir(output_folder)
 # print(folder_names)  # ['done_16-14', 'done_17-13', ...]
 
-compare_order = [
-    ('combo_count', 1),
-    ('main_combo_count', 1),
-    ('matched_main_count', 1),
-    ('matched_count', 1),
-    ('drop_times', -1)
-]
-def compare(obj1, obj2):
-    for property, higher_better in compare_order:
-        if obj1[property] != obj2[property]:
-            if obj1[property] > obj2[property]:
-                return higher_better
-            else:
-                return higher_better * -1
-    return 0
-
-# def sorting_key(board_obj):
-#     key = 0
-
-#     return (
-#         board_obj['combo_count'] * 10**8
-#         + board_obj['main_combo_count'] * 10**6
-#         + board_obj['main_matched_count'] * 10
-#     )
+# compare_order = [
+#     ('combo_count', 1),
+#     ('main_combo_count', 1),
+#     ('matched_main_count', 1),
+#     ('matched_count', 1),
+#     ('drop_times', -1)
+# ]
+# def compare(obj1, obj2):
+#     for property, higher_better in compare_order:
+#         if obj1[property] != obj2[property]:
+#             if obj1[property] > obj2[property]:
+#                 return higher_better
+#             else:
+#                 return higher_better * -1
+#     return 0
 
 optimal_board_objs = []
 
@@ -60,7 +51,7 @@ for folder_name in os.listdir(output_folder):
         #     board_obj['matched_count'] = matched_count
         #     board_obj['matched_other_count'] = matched_count - board_obj['main_matched_count']
 
-        max_combo_board_objs.sort(key=cmp_to_key(compare), reverse=True)
+        # max_combo_board_objs.sort(key=cmp_to_key(compare), reverse=True)
 
         # for board_obj in max_combo_board_objs:
         #     print(board_obj['main_combo_count'], board_obj['main_matched_count'], board_obj['matched_count'], board_obj['drop_times'])
@@ -80,8 +71,8 @@ optimal_board_objs.sort(key=lambda obj: obj['orb_combination'])
 with open(output_folder + output_file_name, 'w') as out_file:
     json.dump(optimal_board_objs, out_file, separators=(',',':'))
 
-# github.io will compress json request, so we don't need this actually
-with open(output_folder + output_file_name, 'rb') as f_in:
-    with gzip.open(output_folder + output_file_name + '.gz', 'wb') as f_out:
-        shutil.copyfileobj(f_in, f_out)
+# # github.io will compress json request, so we don't need this actually
+# with open(output_folder + output_file_name, 'rb') as f_in:
+#     with gzip.open(output_folder + output_file_name + '.gz', 'wb') as f_out:
+#         shutil.copyfileobj(f_in, f_out)
 
