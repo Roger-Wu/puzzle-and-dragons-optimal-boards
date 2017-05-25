@@ -11,7 +11,7 @@ from utils import comb, unique_permutations
 
 # configs
 threads = 4
-orb_counts = [19, 9, 2]
+orb_counts = [18, 6, 6]
 combo_threshold = 8
 
 # constants
@@ -126,7 +126,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
     data = {'combo_to_board_count': combo_to_board_count, 'boards': boards}
     filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
     with open(filename, 'w') as out_file:
-        json.dump(data, out_file, indent=4)
+        json.dump(data, out_file, separators=(',',':'))
 
     return data
 
@@ -178,7 +178,7 @@ def main():
             'combo_to_board_count': combo_to_board_count,
             'combo_to_boards': combo_to_boards,
         }
-        json.dump(data, out_file, indent=4)
+        json.dump(data, out_file, separators=(',',':'))
 
 def test():
     color_perms = unique_permutations([3, 3, 2, 2], 1)
