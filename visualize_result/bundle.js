@@ -21127,6 +21127,35 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: "loadFbSdk",
+    value: function loadFbSdk() {
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '1302050683224374',
+          autoLogAppEvents: true,
+          xfbml: true,
+          version: 'v2.9'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js,
+            fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, 'script', 'facebook-jssdk');
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadFbSdk();
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
