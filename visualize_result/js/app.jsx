@@ -71,7 +71,7 @@ class App extends React.Component {
         });
       }
       else {
-        this.sort_boards( data.combo_to_boards[data.max_combo] );
+        // this.sort_boards( data.combo_to_boards[data.max_combo] );
         this.state.fetched_board_data[option_value] = data;
         this.setState({
           selected_option_value: option_value

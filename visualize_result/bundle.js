@@ -21031,7 +21031,7 @@ var App = function (_React$Component) {
     _this.default_option_label = "All Optimal Boards";
     _this.sorting_orders = [
     // { property: "combo_count", ascending: false},
-    { property: "main_combo_count", ascending: false }, { property: "matched_main_count", ascending: false }, { property: "drop_times", ascending: true }];
+    { property: "main_combo_count", ascending: false }, { property: "matched_main_count", ascending: false }, { property: "matched_count", ascending: false }, { property: "drop_times", ascending: true }];
 
     _this.state = {
       options: [{ value: _this.default_option_value, label: _this.default_option_label }],
@@ -21080,7 +21080,7 @@ var App = function (_React$Component) {
             selected_option_value: option_value
           });
         } else {
-          _this2.sort_boards(data.combo_to_boards[data.max_combo]);
+          // this.sort_boards( data.combo_to_boards[data.max_combo] );
           _this2.state.fetched_board_data[option_value] = data;
           _this2.setState({
             selected_option_value: option_value
