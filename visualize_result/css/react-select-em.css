@@ -5,6 +5,11 @@
  * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs
  * MIT License: https://github.com/JedWatson/react-select
 */
+
+/**
+ * 1em = 16px
+*/
+
 .Select {
   position: relative;
 }
@@ -28,10 +33,13 @@
   opacity: 0.35;
 }
 .Select-control {
+  box-shadow: 0 0.0625em 0.25em rgba(0, 0, 0, 0.25);
+  border: 0.0625em solid #fff;
+
   background-color: #fff;
-  border-color: #d9d9d9 #ccc #b3b3b3;
+  /*border-color: #d9d9d9 #ccc #b3b3b3;*/
   border-radius: 0.25em;
-  border: 0.0625em solid #ccc;
+  /*border: 0.0625em solid #ccc;*/
   color: #333;
   cursor: default;
   display: table;
@@ -44,7 +52,7 @@
   width: 100%;
 }
 .Select-control:hover {
-  box-shadow: 0 0.0625em 0 rgba(0, 0, 0, 0.06);
+  /*box-shadow: 0 0.0625em 0 rgba(0, 0, 0, 0.06);*/
 }
 .Select-control .Select-input:focus {
   outline: none;
@@ -67,8 +75,8 @@
   cursor: text;
 }
 .is-focused:not(.is-open) > .Select-control {
-  border-color: #007eff;
-  box-shadow: inset 0 0.0625em 0.0625em rgba(0, 0, 0, 0.075), 0 0 0 0.1875em rgba(0, 126, 255, 0.1);
+  /*border-color: #007eff;*/
+  /*box-shadow: inset 0 0.0625em 0.0625em rgba(0, 0, 0, 0.075), 0 0 0 0.1875em rgba(0, 126, 255, 0.1);*/
 }
 .Select-placeholder,
 .Select--single > .Select-control .Select-value {
@@ -144,6 +152,8 @@
   width: 1em;
 }
 .Select-loading {
+  border: 0.125em solid #fff;
+
   -webkit-animation: Select-animation-spin 400ms infinite linear;
   -o-animation: Select-animation-spin 400ms infinite linear;
   animation: Select-animation-spin 400ms infinite linear;
@@ -151,8 +161,8 @@
   height: 1em;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 0.125em solid #ccc;
-  border-right-color: #333;
+  /*border: 0.125em solid #ccc;*/
+  /*border-right-color: #333;*/
   display: inline-block;
   position: relative;
   vertical-align: middle;
@@ -200,7 +210,7 @@
 }
 .is-open .Select-arrow,
 .Select-arrow-zone:hover > .Select-arrow {
-  border-top-color: #666;
+  /*border-top-color: #666;*/
 }
 .Select--multi .Select-multi-value-wrapper {
   display: inline-block;
@@ -231,12 +241,15 @@
   }
 }
 .Select-menu-outer {
+  border: 0.0625em solid #fff;
+  box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.25);
+
   border-bottom-right-radius: 0.25em;
   border-bottom-left-radius: 0.25em;
   background-color: #fff;
-  border: 0.0625em solid #ccc;
-  border-top-color: #e6e6e6;
-  box-shadow: 0 0.0625em 0 rgba(0, 0, 0, 0.06);
+  /*border: 0.0625em solid #ccc;*/
+  /*border-top-color: #e6e6e6;*/
+  /*box-shadow: 0 0.0625em 0 rgba(0, 0, 0, 0.06);*/
   box-sizing: border-box;
   margin-top: -0.0625em;
   max-height: 12.5em;
@@ -294,13 +307,16 @@
   margin-left: 0.3125em;
 }
 .Select--multi .Select-value {
+  border: 0.0625em solid #fff;
+  border: 0.0625em solid rgba(255, 255, 255, 1);
+
   background-color: #ebf5ff;
   /* Fallback color for IE 8 */
   background-color: rgba(0, 126, 255, 0.08);
   border-radius: 0.125em;
-  border: 0.0625em solid #c2e0ff;
+  /*border: 0.0625em solid #c2e0ff;*/
   /* Fallback color for IE 8 */
-  border: 0.0625em solid rgba(0, 126, 255, 0.24);
+  /*border: 0.0625em solid rgba(0, 126, 255, 0.24);*/
   color: #007eff;
   display: inline-block;
   font-size: 0.875em;

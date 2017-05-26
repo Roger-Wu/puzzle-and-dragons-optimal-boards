@@ -21168,20 +21168,25 @@ var App = function (_React$Component) {
             "div",
             { className: "title" },
             _react2.default.createElement(
-              "span",
+              "div",
               { className: "title-text" },
-              "Puzzle & Dragons Optimal Boards"
+              "Puzzle & Dragons"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "title-text" },
+              "Optimal Boards"
             )
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "selector-wrapper" },
-            _react2.default.createElement(_reactSelect2.default, {
-              value: this.state.selected_option_value,
-              options: this.state.options,
-              onChange: this.fetch_data
-            })
           )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "selector-wrapper" },
+          _react2.default.createElement(_reactSelect2.default, {
+            value: this.state.selected_option_value,
+            options: this.state.options,
+            onChange: this.fetch_data
+          })
         ),
         !this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value) ? _react2.default.createElement(Spinner, null) : this.state.selected_option_value === this.default_option_value ? _react2.default.createElement(OptimalBoards, { board_data: this.state.fetched_board_data[this.state.selected_option_value] }) : _react2.default.createElement(AppBody, { board_data: this.state.fetched_board_data[this.state.selected_option_value] })
       );

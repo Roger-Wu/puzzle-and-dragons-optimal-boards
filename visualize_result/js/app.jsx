@@ -121,15 +121,16 @@ class App extends React.Component {
       <div className="app">
         <div className="top-container">
           <div className="title">
-            <span className="title-text">Puzzle & Dragons Optimal Boards</span>
+            <div className="title-text">Puzzle & Dragons</div>
+            <div className="title-text">Optimal Boards</div>
           </div>
-          <div className="selector-wrapper">
-            <Select
-              value={this.state.selected_option_value}
-              options={this.state.options}
-              onChange={this.fetch_data}
-            />
-          </div>
+        </div>
+        <div className="selector-wrapper">
+          <Select
+            value={this.state.selected_option_value}
+            options={this.state.options}
+            onChange={this.fetch_data}
+          />
         </div>
         {
           (!this.state.fetched_board_data.hasOwnProperty(this.state.selected_option_value)) ? (

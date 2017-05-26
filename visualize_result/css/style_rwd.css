@@ -29,8 +29,8 @@ body {
 
 .top-container {
   background-color: #38291A;
-  padding: 40rem 10rem 40rem;
-  margin-bottom: 30px;
+  padding: 40rem 0 40rem;
+  margin-bottom: 20rem;
   /*box-shadow: 0rem 2rem 8rem #444;*/
   background-image: url("../images/banner.png");
   background-repeat: no-repeat;
@@ -45,35 +45,32 @@ body {
 .title {
   text-shadow: 0rem 4rem 12rem black;
   text-align: center;
-  font-size: 48rem;
+  font-size: 40rem;
   font-weight: 100;
   color: white;
-  margin: 0 0 20rem 0;
+  /*margin: 0 0 20rem 0;*/
 }
-
-.title-text {
-  display: inline-block;
-  vertical-align: top;  /* to prevent aligning by bottom */
-}
-
 
 .selector-wrapper {
+  position: sticky;
+  top: 0;
   width: 280rem;
   margin: 0 auto;
   color: black;
   font-weight: 200;
-  box-shadow: 0 2rem 8rem #444;
+  /*box-shadow: 0 2rem 8rem #444;*/
   font-size: 24rem;
+  margin-bottom: 20rem;
 }
 
 .main-info-container {
   text-align: center;
-  font-size: 32rem;
-  margin: 20rem 0;
+  font-size: 28rem;
+  margin-bottom: 20rem;
 }
 
 .main-info-number {
-  font-size: 40rem;
+  font-size: 36rem;
 }
 
 .main-info-text {
@@ -115,7 +112,7 @@ body {
   display: inline-block;
   text-align: left;
   width: 280rem;
-  margin: 10rem;
+  margin: 0 10rem 20rem;
   background-color: white;
   /*border: 1rem solid;*/
   /*border-color: #e5e6e9 #dfe0e4 #d0d1d5;*/
