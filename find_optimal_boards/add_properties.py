@@ -13,7 +13,7 @@ from functools import cmp_to_key
 from board import Board
 
 
-simulation_times = 1000
+simulation_times = 10000
 
 input_folder = 'output/'
 folder_prefix = 'done_'
@@ -63,9 +63,14 @@ for folder_name in os.listdir(input_folder):
 
         # data['simulation_times'] = simulation_times
 
-        for combo_count in data['combo_to_boards'].keys():
+        # delete not max combo boards
+        keys = list(data['combo_to_boards'].keys())
+        for combo_count in keys:
             if int(combo_count) != data['max_combo']:
                 data['combo_to_boards'].pop(combo_count, None)
+
+        for combo_count in data['combo_to_boards'].keys():
+            if int(combo_count) != data['max_combo']:
                 continue
 
             board_objs = data['combo_to_boards'][combo_count]
