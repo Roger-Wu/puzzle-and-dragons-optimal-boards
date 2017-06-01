@@ -13,15 +13,15 @@ import argparse
 parser = argparse.ArgumentParser(description='Find boards whose number of combos is >= a given threshold.')
 
 parser.add_argument('orb_counts', type=int, nargs='+', help='A series of numbers. Each is the number of orbs of each color. 6 numbers at most. (e.g. 18 6 6)')
-parser.add_argument('combo_threshold', type=int, nargs=1, help='The threshold of number of combos. We will discard boards whose combo number is smaller than it. A bigger threshold gives you better performance. (e.g. 8)')
-parser.add_argument('-t', '--thread', dest='threads', type=int, nargs=1, default=4, help="Number of threads you want to run with. (default: %(default)s)")
+parser.add_argument('combo_threshold', type=int, help='The threshold of number of combos. We will discard boards whose combo number is smaller than it. A bigger threshold gives you better performance. (e.g. 8)')
+parser.add_argument('-t', '--thread', dest='threads', type=int, default=4, help="Number of threads you want to run with. (default: %(default)s)")
 
 args = parser.parse_args()
 
 # configs
 orb_counts = args.orb_counts
-combo_threshold = args.combo_threshold[0]
-threads = args.threads[0]
+combo_threshold = args.combo_threshold
+threads = args.threads
 
 # constants
 row_size = 5
