@@ -29,8 +29,10 @@ coordinates of board stored in Board:
 ]
 """
 
+# import numpy as np
 import random
 import time
+# from collections import OrderedDict
 
 
 class Board(object):
@@ -94,11 +96,11 @@ class Board(object):
         for p, c in zip(positions, colors):
             self.board[p // self.col_size][p % self.col_size] = c
 
-    def get_board_string(self):
-        return '[\n' + ',\n'.join(map(str, reversed(self.board))) + ']'
-
     def get_output_board(self):
         return [' '.join(map(str, row)) for row in reversed(self.board)]
+
+    def set_board_with_output_board(self, board):
+        self.board = [list(map(int, row.split())) for row in reversed(board)]
 
     def print_board(self, board=None):
         if not board:
@@ -115,7 +117,7 @@ class Board(object):
             return -1
         return self.board[row_idx][col_idx]
 
-    def count_combos(self, board=None):
+    def count_combos(self, board=None, skydrop=False):
         if not board:
             board = self.board
 
@@ -193,7 +195,11 @@ class Board(object):
             drop_times = 1
 
             # remove matched orbs
-            board_after = [[0] * self.width for i in range(self.height)]
+            if skydrop:
+                board_after = [[random.randrange(1, self.orb_colors + 1) \
+                    for j in range(self.width)] for i in range(self.height)]
+            else:
+                board_after = [[0] * self.width for i in range(self.height)]
             for ci in range(self.col_size):
                 ri_after = 0
                 for ri in range(self.row_size):
@@ -201,7 +207,7 @@ class Board(object):
                         board_after[ri_after][ci] = board[ri][ci]
                         ri_after += 1
 
-            extra_combos, extra_drop_times = self.count_combos(board_after)
+            extra_combos, extra_drop_times = self.count_combos(board_after, skydrop=skydrop)
             combos += extra_combos
             drop_times += extra_drop_times
 
@@ -277,11 +283,54 @@ class Board(object):
                     col += 1
         return combos
 
+    def calc_average_damage(self, simulation_times=1000):
+        # if simulation_times > 1, calculate average damage
+        main_damage_multipliers = []
+        combo_counts = []
+        main_combo_counts = []
+
+        for simulation_idx in range(simulation_times):
+            combos, drop_times = self.count_combos(skydrop=True)
+            combo_count = len(combos)
+            combo_counts.append(combo_count)
+            combo_multiplier = 1 + (combo_count - 1) / 4
+
+            main_combo_count = 0
+            main_match_multiplier = 0
+            for combo in combos:
+                color, matched_orb_count = combo
+                if color == self.main_color:
+                    main_combo_count += 1
+                    main_match_multiplier += 1 + (matched_orb_count - 3) / 4
+
+            main_combo_counts.append(main_combo_count)
+            main_damage_multipliers.append(main_match_multiplier * combo_multiplier)
+
+        # result = OrderedDict([
+        #     ('simulation_times', simulation_times),
+        #     ('combo_count_avg', sum(combo_counts) / len(combo_counts)),
+        #     ('combo_count_min', min(combo_counts)),
+        #     ('main_combo_count_avg', sum(main_combo_counts) / len(main_combo_counts)),
+        #     ('main_damage_multiplier_avg', sum(main_damage_multipliers) / len(main_damage_multipliers)),
+        #     # ('main_damage_multiplier_std', np.std(main_damage_multipliers)),
+        # ])
+
+        result = {
+            'simulation_times': simulation_times,
+            'combo_count_avg': sum(combo_counts) / len(combo_counts),
+            'combo_count_min': min(combo_counts),
+            'main_combo_count_avg': sum(main_combo_counts) / len(main_combo_counts),
+            'main_damage_multiplier_avg': sum(main_damage_multipliers) / len(main_damage_multipliers),
+            # 'main_damage_multiplier_std': np.std(main_damage_multipliers),
+        }
+
+        return result
+
 
 def main():
     b = Board([
-        [6, 6, 6, 6, 6, 6],
-        [6, 6, 6, 6, 6, 6],
+        [6, 6, 3, 6, 6, 6],
+        [6, 6, 2, 6, 6, 6],
         [6, 6, 1, 6, 6, 6],
         [4, 4, 4, 2, 2, 6],
         [1, 1, 2, 3, 3, 3],
@@ -289,11 +338,23 @@ def main():
 
     start = time.time()
 
-    pos = (1, 6, 8, 13)
-    print(b.calc_symmetric_positions(pos))
-    print(bin(b.positions_to_int(pos)))
+    # b.print_board()
+    # out = b.get_output_board()
+    # print(out)
+    # b.set_board_with_output_board(out)
+    # b.print_board()
 
-    # print(b.count_combos())
+
+    # pos = (1, 6, 8, 13)
+    # print(b.calc_symmetric_positions(pos))
+    # print(bin(b.positions_to_int(pos)))
+
+    # print(b.count_combos(skydrop=True))
+    # for i in range(10):
+    #     print(b.count_combos(skydrop=True))
+
+    # for i in range(10):
+    # print(b.calc_average_damage(10000))
 
     # test count combos
     # for i in range(10000):
