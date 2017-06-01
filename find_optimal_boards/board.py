@@ -283,28 +283,43 @@ class Board(object):
                     col += 1
         return combos
 
-    def calc_average_damage(self, simulation_times=1000):
+    def calc_main_damage_from_combos(self, combos):
+        combo_count = len(combos)
+        combo_multiplier = 1 + (combo_count - 1) / 4
+
+        main_combo_count = 0
+        main_match_multiplier = 0
+        for combo in combos:
+            color, matched_orb_count = combo
+            if color == self.main_color:
+                main_combo_count += 1
+                main_match_multiplier += 1 + (matched_orb_count - 3) / 4
+
+        main_damage_multiplier = main_match_multiplier * combo_multiplier
+
+        return {
+            'combo_count': combo_count,
+            'main_combo_count': main_combo_count,
+            'main_damage_multiplier': main_damage_multiplier,
+        }
+
+    def calc_main_damage(self, skydrop=False):
+        combos, drop_times = self.count_combos(skydrop=skydrop)
+        return self.calc_main_damage_from_combos(combos)
+
+    def calc_average_main_damage(self, simulation_times=10000):
         # if simulation_times > 1, calculate average damage
-        main_damage_multipliers = []
         combo_counts = []
         main_combo_counts = []
+        main_damage_multipliers = []
 
         for simulation_idx in range(simulation_times):
             combos, drop_times = self.count_combos(skydrop=True)
-            combo_count = len(combos)
-            combo_counts.append(combo_count)
-            combo_multiplier = 1 + (combo_count - 1) / 4
+            res = self.calc_main_damage_from_combos(combos)
 
-            main_combo_count = 0
-            main_match_multiplier = 0
-            for combo in combos:
-                color, matched_orb_count = combo
-                if color == self.main_color:
-                    main_combo_count += 1
-                    main_match_multiplier += 1 + (matched_orb_count - 3) / 4
-
-            main_combo_counts.append(main_combo_count)
-            main_damage_multipliers.append(main_match_multiplier * combo_multiplier)
+            combo_counts.append(res['combo_count'])
+            main_combo_counts.append(res['main_combo_count'])
+            main_damage_multipliers.append(res['main_damage_multiplier'])
 
         # result = OrderedDict([
         #     ('simulation_times', simulation_times),
@@ -353,10 +368,10 @@ def main():
     # for i in range(10):
     #     print(b.count_combos(skydrop=True))
 
-    # for i in range(10):
-    # print(b.calc_average_damage(10000))
+    for i in range(10):
+        print(b.calc_average_main_damage(10000))
 
-    # test count combos
+    # # test count combos
     # for i in range(10000):
     #     b.count_combos()
 
