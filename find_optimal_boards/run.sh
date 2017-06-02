@@ -65,4 +65,3 @@ pypy3 find_optimal_boards.py 17 3 3 3 3 1 9 -t $THREADS
 
 pypy3 find_optimal_boards.py 16 14 9 -t $THREADS
 pypy3 find_optimal_boards.py 16 3 3 3 3 2 9 -t $THREADS
-
