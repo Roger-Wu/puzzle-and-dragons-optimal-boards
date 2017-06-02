@@ -19,19 +19,18 @@ board stored in Board:
 ]
 board[0] = [1, 1, 2, 3, 3, 3]
 
-coordinates of board stored in Board:
-[
-    [00, 01, 02, 03, 04, 05],  # bottom
-    [10, 11, 12, 13, 14, 15],
-    [20, 21, 22, 23, 24, 25],
-    [30, 31, 32, 33, 34, 35],
-    [40, 41, 42, 43, 44, 45],  # top
-]
+position index:
+24 25 26 27 28 29  # top
+18 19 20 21 22 23
+12 13 14 15 16 17
+ 6  7  8  9 10 11
+ 0  1  2  3  4  5  # bottom
 """
 
 # import numpy as np
 import random
-import time
+import operator
+from functools import lru_cache
 # from collections import OrderedDict
 
 
@@ -57,7 +56,7 @@ class Board(object):
         self.queue_ci = [0] * self.cell_count
         self.four_directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
-        self.color_col_counts = [[0] * self.col_size for i in range(self.orb_colors)]
+        self.color_col_counts = [[0] * self.col_size for i in range(self.orb_colors + 1)]
 
     def set_board(self, board):
         self.board = [list(row) for row in reversed(board)]
@@ -251,37 +250,62 @@ class Board(object):
 
         return combos + (main_orb_count - matched_main_orbs) // match_len
 
-    def count_other_orb_max_combos(self, other_orb_positions, other_orb_colors, other_orb_color_count):
-        col_size = self.col_size
+    def calc_other_orb_max_combos(self, other_orb_positions, other_orb_colors):
+        # color_col_counts: for each color, how many orbs are in each column
         color_col_counts = self.color_col_counts
+        has_colors = [False] * (self.orb_colors + 1)
 
-        for color in range(other_orb_color_count):
-            for col in range(col_size):
-                color_col_counts[color][col] = 0
+        # reset to 0
+        for col_counts in color_col_counts:
+            for col_idx in range(len(col_counts)):
+                col_counts[col_idx] = 0
 
-        for p, c in zip(other_orb_positions, other_orb_colors):
-            color = c - 1
-            col = p % 6
+        for pos, color in zip(other_orb_positions, other_orb_colors):
+            col = pos % 6
             color_col_counts[color][col] += 1
+            has_colors[color] = True
 
-        combos = 0
-        for color in range(other_orb_color_count):
-            col = 0
-            while col < col_size:
-                if color_col_counts[color][col] >= 3:
-                    combos += 1
-                    color_col_counts[color][col] -= 3
-                    continue
-                elif (col+2 < col_size
-                and color_col_counts[color][col] > 0
-                and color_col_counts[color][col+1] > 0
-                and color_col_counts[color][col+2] > 0):
-                    combos += 1
-                    for i in range(3):
-                        color_col_counts[color][col+i] -= 1
-                else:
-                    col += 1
-        return combos
+        max_combo_count = 0
+        for color in range(len(has_colors)):
+            if has_colors[color] == False:
+                continue
+            max_combo_count += self.calc_max_combo_from_col_distr(tuple(color_col_counts[color]))
+
+        return max_combo_count
+
+    @lru_cache(maxsize=10000)
+    def calc_max_combo_from_col_distr(self, col_distr):
+        # col_distr: how many orbs in each column, e.g. [0, 1, 2, 2, 1, 0]
+        # return max possible combo count, e.g. 2
+        if sum(col_distr) < self.match_len:
+            return 0
+
+        max_combo = 0
+
+        # check vertical
+        for col_idx in range(len(col_distr)):
+            if col_distr[col_idx] >= self.match_len:
+                new_col_distr = list(col_distr)
+                new_col_distr[col_idx] -= self.match_len
+                new_col_distr = tuple(new_col_distr)
+                combo = 1 + self.calc_max_combo_from_col_distr(new_col_distr)
+                max_combo = max(max_combo, combo)
+                break
+
+        # check horizontal
+        for col_idx in range(len(col_distr) - self.match_len + 1):
+            if (col_distr[col_idx] >= 1
+            and col_distr[col_idx + 1] >= 1
+            and col_distr[col_idx + 2] >= 1):
+                new_col_distr = list(col_distr)
+                for tmp_col_idx in range(col_idx, col_idx + self.match_len):
+                    new_col_distr[tmp_col_idx] -= 1
+                new_col_distr = tuple(new_col_distr)
+                combo = 1 + self.calc_max_combo_from_col_distr(new_col_distr)
+                max_combo = max(max_combo, combo)
+                break
+
+        return max_combo
 
     def calc_main_damage_from_combos(self, combos):
         combo_count = len(combos)
@@ -340,56 +364,3 @@ class Board(object):
         }
 
         return result
-
-
-def main():
-    b = Board([
-        [6, 6, 3, 6, 6, 6],
-        [6, 6, 2, 6, 6, 6],
-        [6, 6, 1, 6, 6, 6],
-        [4, 4, 4, 2, 2, 6],
-        [1, 1, 2, 3, 3, 3],
-    ])
-
-    start = time.time()
-
-    # b.print_board()
-    # out = b.get_output_board()
-    # print(out)
-    # b.set_board_with_output_board(out)
-    # b.print_board()
-
-
-    # pos = (1, 6, 8, 13)
-    # print(b.calc_symmetric_positions(pos))
-    # print(bin(b.positions_to_int(pos)))
-
-    # print(b.count_combos(skydrop=True))
-    # for i in range(10):
-    #     print(b.count_combos(skydrop=True))
-
-    for i in range(10):
-        print(b.calc_average_main_damage(10000))
-
-    # # test count combos
-    # for i in range(10000):
-    #     b.count_combos()
-
-    # b.print_board()
-
-    # positions = list(range(12))
-    # colors = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
-
-
-    # print(b.count_combos())
-
-    # print(b.count_main_orb_max_combos([0, 7, 14, 21, 28, 29]))
-    # positions = [0, 1, 2, 3, 6, 12, 24]
-    # for i in range(10000):
-    #     b.count_other_orb_max_combos(positions, [1] * len(positions), 1)
-
-    print('elapsed: {}'.format(time.time() - start))
-
-
-if __name__ == '__main__':
-    main()
