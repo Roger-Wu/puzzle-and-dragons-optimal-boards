@@ -87,7 +87,10 @@ for folder_name in os.listdir(input_folder):
 
                 # simulate matching and get average combos and damage
                 board.set_board_with_output_board(board_obj['board'])
-                simu_result = board.calc_average_damage(simulation_times)
+                result = board.calc_main_damage()
+                board_obj['main_damage_multiplier'] = result['main_damage_multiplier']
+
+                simu_result = board.calc_average_main_damage(simulation_times)
                 for key in simu_result.keys():
                     board_obj[key] = simu_result[key]
 
