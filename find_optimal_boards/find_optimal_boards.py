@@ -109,7 +109,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
             continue
 
         for colors in other_orb_unique_color_perms:
-            other_orb_max_combos = b.count_other_orb_max_combos(pos, colors, other_orb_color_count)
+            other_orb_max_combos = b.calc_other_orb_max_combos(pos, colors)
             max_combos = main_orb_max_combos + other_orb_max_combos
             if max_combos < combo_threshold:
                 continue
