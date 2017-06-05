@@ -59,6 +59,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
     # if this fixed_first_row has been calculated, read the file and return it
     filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
     if os.path.isfile(filename):
+        print(filename + ' exists. skip calculating.')
         with open(filename, 'r') as in_file:
             data = json.load(in_file)  # , object_pairs_hook=OrderedDict
             return data
