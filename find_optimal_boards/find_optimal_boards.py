@@ -54,7 +54,14 @@ other_orb_unique_color_perms = unique_permutations(other_orb_counts, first_other
 print('total_permutations:', len(other_orb_unique_color_perms))
 
 def find_high_combo_boards_fix_first_row(fixed_first_row):
-    # input: fixed_in_first_row = (0,)
+    # input example: fixed_in_first_row = (,) or (0,) or (1, 2, 4), ...
+
+    # if this fixed_first_row has been calculated, read the file and return it
+    filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
+    if os.path.isfile(filename):
+        with open(filename, 'r') as in_file:
+            data = json.load(in_file)  # , object_pairs_hook=OrderedDict
+            return data
 
     b = Board()
     main_color = b.main_color
@@ -134,7 +141,7 @@ def find_high_combo_boards_fix_first_row(fixed_first_row):
                 })
 
     data = {'combo_to_board_count': combo_to_board_count, 'boards': boards}
-    filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
+    # filename = output_folder + 'fixed-{}.json'.format('-'.join(map(str, fixed_first_row)))
     with open(filename, 'w') as out_file:
         json.dump(data, out_file, separators=(',',':'))
 
