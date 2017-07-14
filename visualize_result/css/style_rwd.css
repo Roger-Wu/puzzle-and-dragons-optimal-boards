@@ -61,6 +61,7 @@ body {
   font-weight: 200;
   font-size: 24rem;
   margin-bottom: 50rem;
+  z-index: 100;
 }
 
 .main-info-container {
