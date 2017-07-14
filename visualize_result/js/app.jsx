@@ -35,7 +35,6 @@ class App extends React.Component {
     };
 
     this.fetch_data = this.fetch_data.bind(this);
-    this.fetch_data(this.default_option_value);
   }
 
   fetch_data(option_value) {
@@ -114,6 +113,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.loadFbSdk();
+    this.fetch_data(this.default_option_value);
   }
 
   render() {
