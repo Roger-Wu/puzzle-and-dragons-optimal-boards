@@ -3,6 +3,25 @@ import { render } from "react-dom";
 
 
 class Board extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      isHovered: false,
+    };
+
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  handleMouseEnter() {
+    this.setState({isHovered: true})
+  }
+
+  handleMouseLeave() {
+    this.setState({isHovered: false})
+  }
+
   render() {
     let { board } = this.props;
 
@@ -27,7 +46,14 @@ class Board extends React.Component {
     });
     return (
       <a href={url} target="_blank">
-        {React.createElement("div", {className: "board"}, rows)}
+        <div className="board" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+          {rows}
+          {
+            (this.state.isHovered) ?
+            <div className="board-play-button">&#9658;</div>
+            : null
+          }
+        </div>
       </a>
     )
   }
@@ -46,7 +72,7 @@ export class BoardCard extends React.Component {
     return React.createElement("div", {className: "board-card"}, [
       React.createElement("div", {className: "board-index", key: "board-index"}, `${title}`),
       <div className="board-info" key="board-info">
-        <div>
+        <div title="the number of combos of main orbs and other orbs">
           <span className="board-info-text">combos</span>
           <span className="board-info-number emphasis">
             <span>{board_obj.main_combo_count}</span>
@@ -54,7 +80,7 @@ export class BoardCard extends React.Component {
             <span>{board_obj.combo_count - board_obj.main_combo_count}</span>
           </span>
         </div>
-        <div>
+        <div title="the number of matched main orbs and other orbs">
           <span className="board-info-text">orbs matched</span>
           <span className="board-info-number emphasis">
             <span>{board_obj.matched_main_count}</span>
@@ -62,22 +88,22 @@ export class BoardCard extends React.Component {
             <span>{board_obj.matched_other_count}</span>
           </span>
         </div>
-        <div>
-          <span className="board-info-text">avg. combos</span>
-          <span className="board-info-number emphasis">{board_obj.combo_count_avg.toFixed(1)}</span>
-        </div>
-        <div>
-          <span className="board-info-text">avg. damage</span>
-          <span className="board-info-number emphasis">x {board_obj.main_damage_multiplier_avg.toFixed(1)}</span>
-        </div>
-        <div>
-          <span className="board-info-text">times of dropping</span>
-          <span className="board-info-number emphasis">{board_obj.drop_times}</span>
-        </div>
-        <div>
+        <div title={"the minimum number of combos when there are skydrop orbs (with " + board_obj.simulation_times.toString() + " simulations)"}>
           <span className="board-info-text">min. combos</span>
           <span className="board-info-number emphasis">{board_obj.combo_count_min}</span>
         </div>
+        <div title={"the average number of combos when there are skydrop orbs (with " + board_obj.simulation_times.toString() + " simulations)"}>
+          <span className="board-info-text">avg. combos</span>
+          <span className="board-info-number emphasis">{board_obj.combo_count_avg.toFixed(1)}</span>
+        </div>
+        <div title={"the average damage multiplier when there are skydrop orbs (with " + board_obj.simulation_times.toString() + " simulations)"}>
+          <span className="board-info-text">avg. damage</span>
+          <span className="board-info-number emphasis">x {board_obj.main_damage_multiplier_avg.toFixed(1)}</span>
+        </div>
+        {/*<div>
+          <span className="board-info-text">times of dropping</span>
+          <span className="board-info-number emphasis">{board_obj.drop_times}</span>
+        </div>*/}
       </div>,
       // infos.map(function(info) {
       //   return React.createElement("div", {className: "board-info"}, info);
