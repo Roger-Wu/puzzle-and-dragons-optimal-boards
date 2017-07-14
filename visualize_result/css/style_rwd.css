@@ -157,10 +157,20 @@ body {
 .board {
   text-align: center;
   margin: 14rem 0;
+  position: relative;
 }
 
 .board-row {
   height: 42rem;
+}
+
+.board-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120rem;
+  color: rgba(128,128,128,0.5);
 }
 
 .orb {
@@ -170,7 +180,6 @@ body {
   border-radius: 100%;
   margin: 1rem;
 }
-
 
 .loader-wrapper {
   font-size: 100rem;
