@@ -81,11 +81,11 @@ body {
 }
 
 .orb-color-2 {
-  background-color: #2196F3;
+  background-color: #4CAF50;
 }
 
 .orb-color-3 {
-  background-color: #4CAF50;
+  background-color: #2196F3;
 }
 
 .orb-color-4 {
@@ -135,18 +135,19 @@ body {
   font-size: 24rem;
   /*color: #606060;*/
   margin: 15rem;
-}
-
-.board-info-number {
-  font-size: 32rem;
+  line-height: 32rem;
 }
 
 .board-info-text {
   /*position:absolute;
   bottom:0;
   right:0;*/
+  /*margin-top: 6rem;*/
+}
+
+.board-info-number {
+  font-size: 32rem;
   float: right;
-  margin-top: 6rem;
 }
 
 .board-info-plus {
