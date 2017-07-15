@@ -117,6 +117,9 @@ export class BoardCardsContainer extends React.Component {
   render() {
     return React.createElement("div", {className: "board-cards-container"},
       this.props.board_objs.map(function(board_obj, index) {
+        if (index >= 100) {
+          return null;
+        }
         let key = board_obj.board.join(" ");
         return React.createElement(BoardCard, {board_obj: board_obj, title: index+1, key: key}, null);
       })
