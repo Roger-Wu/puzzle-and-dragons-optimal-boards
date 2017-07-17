@@ -54,12 +54,23 @@ class App extends React.Component {
     $.getJSON(url, (data) => {
       // console.log(data);
 
+      // if the fetched data is all optimal boards
       if (option_value === this.default_option_value) {
-        this.state.fetched_board_data[option_value] = data;
+        // separate data into groups by the number of main orbs
+        let data_dict = {};
+        for (let board_obj of data) {
+          let main_orb_count = board_obj.orb_combination[0];
+          if (!data_dict.hasOwnProperty(main_orb_count)) {
+            data_dict[main_orb_count] = [];
+          }
+          data_dict[main_orb_count].push(board_obj);
+        }
+
+        this.state.fetched_board_data[option_value] = data_dict;
         let options = data.map((optimal_board_obj) => {
           return {
             value: optimal_board_obj.orb_config,
-            label: optimal_board_obj.orb_config.replace(/-/g, " "),
+            label: optimal_board_obj.orb_combination.join(" "),
           }
         });
         // prepend default option
@@ -171,16 +182,37 @@ class Spinner extends React.Component {
 class OptimalBoards extends React.Component {
   render() {
     let { board_data } = this.props;
+    // board_data = {
+    //   16: [{"orb_config":"16-12-2",...}, ...],
+    //   17: [],
+    //   ...
+    // }
+
+    let keys = Object.keys(board_data);
+    keys.sort();
+    let elements = [];
+    for (let key of keys) {
+      elements.push(
+        <div className="main-info-container">
+          <span className="main-info-number emphasis">{key}</span>
+          <span className="main-info-text"> Orbs in One Color</span>
+        </div>
+      );
+      let board_group = board_data[key];
+      for (let one_board_data of board_group) {
+        elements.push(
+          <BoardCard
+            board_obj={one_board_data.optimal_board_obj}
+            title={one_board_data.orb_combination.join(" ")}
+            key={one_board_data.orb_config}
+          />
+        );
+      }
+    }
     return (
       <div className="app-body">
         <div className="board-cards-container">
-          { board_data.map((optimal_board_data) => {
-            return <BoardCard
-              board_obj={optimal_board_data.optimal_board_obj}
-              title={optimal_board_data.orb_combination.join(" ")}
-              key={optimal_board_data.orb_config}
-            />
-          })}
+          { elements }
         </div>
       </div>
     )
