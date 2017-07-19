@@ -1,5 +1,5 @@
 # puzzle-and-dragons-optimal-boards
-Find optimal boards when the number of a kind of orb > 15
+Find the optimal boards when there are > 15 orbs in one color.
 
 ## Results
 
