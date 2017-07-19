@@ -1,6 +1,8 @@
 # puzzle-and-dragons-optimal-boards
 Find the optimal boards when there are > 15 orbs in one color.
 
+![demo image](https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/visualize_result/images/demo.png)
+
 ## Results
 
 [**See all the optimal boards here**](https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/visualize_result/optimal_boards.html)
