@@ -77,6 +77,20 @@ body {
 .main-info-text {
 }
 
+.show-more-text {
+  text-align: center;
+  font-size: 28rem;
+  margin: 0 auto 20rem;
+  color: white;
+  cursor: pointer;
+  width: 150rem;
+  padding: 10rem;
+  background-color: #8D6E63;
+  border-radius: 4rem;
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.25);
+
+}
+
 .orb-color-1 {
   background-color: #F44336;
 }

@@ -114,16 +114,45 @@ export class BoardCard extends React.Component {
 }
 
 export class BoardCardsContainer extends React.Component {
+  // constructor(props, context) {
+  //   super(props, context);
+  //   // this.showMore = this.showMore.bind(this);
+  // }
+
+  componentWillMount() {
+    this.state = {
+      show_board_count: 100,
+    }
+  }
+
+  showMore() {
+    this.setState({
+      show_board_count: this.state.show_board_count + 100,
+    });
+  }
+
   render() {
-    return React.createElement("div", {className: "board-cards-container"},
-      this.props.board_objs.map(function(board_obj, index) {
-        if (index >= 100) {
-          return null;
-        }
+    const { board_objs } = this.props;
+    const { show_board_count } = this.state;
+
+    const boards = [];
+    const len = Math.min(show_board_count, board_objs.length);
+    for (let i = 0; i < len; i++) {
+        let board_obj = board_objs[i];
         let key = board_obj.board.join(" ");
-        return React.createElement(BoardCard, {board_obj: board_obj, title: index+1, key: key}, null);
-      })
-    );
+        boards.push( React.createElement(BoardCard, {board_obj: board_obj, title: i+1, key: key}, null) );
+    }
+
+    return (
+      <div className="board-cards-container">
+        { boards }
+        {
+          (board_objs.length > show_board_count) ?
+          <div onClick={this.showMore.bind(this)} className="show-more-text">Show More</div>
+          : null
+        }
+      </div>
+    )
   }
 }
 
