@@ -1,6 +1,6 @@
 # puzzle-and-dragons-optimal-boards
 
-To find and visualize the high-combo boards when there are 15+ orbs in the same color.
+An optimized brute-force searcher for the game, Puzzle & Dragons, to find the high-combo orb-layout when there are 15+ orbs in the same color on a 5 x 6 board.
 
 ![demo image](https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/visualize_result/images/demo.png)
 
