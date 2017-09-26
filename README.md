@@ -1,6 +1,6 @@
 # puzzle-and-dragons-optimal-boards
 
-To find and visualize the high-combo boards when there are 15+ orbs in one color.
+To find and visualize the high-combo boards when there are 15+ orbs in the same color.
 
 ![demo image](https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/visualize_result/images/demo.png)
 
