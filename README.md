@@ -2,7 +2,7 @@
 
 An optimized brute-force searcher for the game, Puzzle & Dragons, to search for all high-combo layouts when there are 15+ orbs in the same color on a 5 x 6 board.
 
-![demo image](https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/visualize_result/images/demo.png)
+[![demo image](https://raw.githubusercontent.com/Roger-Wu/puzzle-and-dragons-optimal-boards/master/visualize_result/images/demo.png)](https://roger-wu.github.io/puzzle-and-dragons-optimal-boards/visualize_result/optimal_boards.html)
 
 ## Results
 
